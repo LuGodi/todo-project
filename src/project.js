@@ -1,3 +1,5 @@
+//maybe composition to make them share a property pointing to the same place
+//like a relational table
 export class Project {
   #todos = [];
   #creationDate = new Date();
@@ -12,14 +14,18 @@ export class Project {
     return this.#todos;
   }
   removeFromProject(task) {
-    if (this.#todos.includes(task)) {
-      const indexToRemove = this.#todos.indexOf(task);
-      this.#todos.splice(indexToRemove, 1);
+    const taskIndex = this.findInProject(task);
+    if (taskIndex !== false) {
+      this.#todos.splice(taskIndex, 1);
       console.log(task, " removed from todos");
     } else {
       console.log(`${task} was not found in array`);
     }
     return this.#todos;
+  }
+  findInProject(task) {
+    const index = this.#todos.indexOf(task);
+    return index === -1 ? index : false;
   }
 }
 export const defaultProject = new Project("Default");
