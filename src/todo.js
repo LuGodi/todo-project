@@ -24,4 +24,9 @@ export class Todo {
   get completed() {
     return this.#completed;
   }
+  toString() {
+    return `A todo titled - ${this.title} -, duedate set to ${
+      this.duedate === false ? "None" : this.duedate
+    }, with priority ${this.priority} created at ${this.creationTime}`;
+  }
 }

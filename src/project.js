@@ -10,7 +10,11 @@ export class Project {
 
   addToProject(task) {
     this.#todos.push(task);
-    console.log(`${this.#todos[length - 1]} added to project`);
+    console.log(
+      `${this.#todos[
+        this.#todos.length - 1
+      ].toString()} added to ${this.toString()}`
+    );
     return this.#todos;
   }
   removeFromProject(task) {
@@ -26,6 +30,9 @@ export class Project {
   findInProject(task) {
     const index = this.#todos.indexOf(task);
     return index === -1 ? index : false;
+  }
+  toString() {
+    return `Project ${this.name}`;
   }
 }
 export const defaultProject = new Project("Default");
