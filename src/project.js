@@ -3,7 +3,7 @@
 export class Project {
   #todos = [];
   #creationDate = new Date();
-  constructor(name, description) {
+  constructor(name, description = "") {
     this.name = name;
     this.description = description;
   }
