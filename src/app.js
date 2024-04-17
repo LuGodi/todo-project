@@ -11,7 +11,6 @@ class App {
     projectName = "Default",
   }) {
     //leverage destructuring assignment
-    const newTodo = new Todo(title, description, duedate, priority);
     const project = this.findProject(projectName);
     //Need to figure out better how I want the client to be able to input the project
     //will default always be the choice? Should I warn them when I create a new project?
@@ -21,13 +20,17 @@ class App {
     //and if not its creating one
     //TODO
     if (project === false) {
-      const newProject = this.addNewProject(projectName);
-      newProject.addToProject(newTodo);
+      const newProjectId = this.addNewProject(projectName);
+      this.projects[newProjectId].addToProject(
+        new Todo(title, description, duedate, priority, newProjectId)
+      );
     } else {
-      project.addToProject(newTodo);
+      const [projectIndex, projectObj] = project;
+      projectObj.addToProject(
+        new Todo(title, description, duedate, priority, projectIndex)
+      );
     }
   }
-
   completeTodo(todo) {
     todo.completed = true;
   }
@@ -36,14 +39,14 @@ class App {
   }
   addNewProject(name, description) {
     const newProject = new Project(name, description);
-    this.projects.push(newProject);
-    return newProject;
+    return this.projects.push(newProject) - 1;
+    // return newProject;
   }
   findProject(projectName) {
-    for (let project of this.projects) {
+    for (let [projectIndex, project] of this.projects.entries()) {
       console.log(project);
       if (project.name === projectName) {
-        return project;
+        return [projectIndex, project];
       }
     }
     return false;

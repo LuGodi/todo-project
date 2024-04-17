@@ -3,12 +3,20 @@
 export class Todo {
   #creationDate = new Date();
   #completed = false;
-  constructor(title, description = "", duedate = false, priority = 1) {
+
+  constructor(
+    title,
+    description = "",
+    duedate = false,
+    priority = 1,
+    projectId = 0
+  ) {
     if (priority > 3 || priority < 1) throw new Error("invalid priority");
     this.title = title;
     this.description = description;
     this.duedate = duedate;
     this.priority = priority;
+    this.projectId = projectId;
 
     //priorities will be low medium high, add a check condition
   }
@@ -24,6 +32,7 @@ export class Todo {
   get completed() {
     return this.#completed;
   }
+
   toString() {
     return `A todo titled - ${this.title} -, duedate set to ${
       this.duedate === false ? "None" : this.duedate
