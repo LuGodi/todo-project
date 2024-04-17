@@ -39,12 +39,13 @@ class App {
   }
   addNewProject(name, description) {
     const newProject = new Project(name, description);
+    this.projects.push(newProject);
     return newProject;
     // return newProject;
   }
   findProject(projectName) {
     for (let [projectIndex, project] of this.projects.entries()) {
-      console.log(project);
+      //   console.log(project);
       if (project.name === projectName) {
         return [projectIndex, project];
       }
@@ -64,20 +65,20 @@ class App {
 
     return foundIndices;
   }
-  moveTodo(todo, targetProjectName) {
+  moveTodo(todo, newProjectName) {
     //I need to remove the todo from the project that it is in
 
-    const targetProject = this.todo.parentProject;
-    console.log(targetProject);
+    const currentProject = todo.parentProject;
+    // console.log(currentProject);
 
-    targetProject.removeFromProject(todo);
+    currentProject.removeFromProject(todo);
     //I need to remove the todo.projectId
     todo.parentProject = null;
 
     //I need to add the todo to the new project
     //will i receive project id or project name?
     const [targetProjectId, targetProjectObj] =
-      this.projects.findProject(targetProjectName);
+      this.findProject(newProjectName);
     targetProjectObj.addToProject(todo);
     //I need to update the todo.projectId
     todo.parentProject = targetProjectObj;

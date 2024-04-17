@@ -11,9 +11,9 @@ export class Project {
   addToProject(task) {
     this.todoList.push(task);
     console.log(
-      `${this.todoList[
-        this.todoList.length - 1
-      ].toString()} added to ${this.toString()}`
+      `${this.todoList[this.todoList.length - 1].toString()} added to ${
+        this.name
+      }`
     );
     return this.todoList;
   }
@@ -21,15 +21,15 @@ export class Project {
     const taskIndex = this.findInProject(task);
     if (taskIndex !== false) {
       this.todoList.splice(taskIndex, 1);
-      console.log(task, " removed from todos");
+      console.log(`${task.toString()} removed from todos`);
     } else {
-      console.log(`${task} was not found in array`);
+      console.log(`${task.toString()} was not found in array`);
     }
     return this.todoList;
   }
   findInProject(task) {
     const index = this.todoList.indexOf(task);
-    return index === -1 ? index : false;
+    return index === -1 ? false : index;
   }
   toString() {
     return `Project ${

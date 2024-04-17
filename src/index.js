@@ -35,6 +35,13 @@ const mock = {
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
+console.log("list projects:");
 app.listProjects();
-const todoToMove = app.projects[0];
+const todoToMove = app.projects[0].todoList[0];
 console.log(todoToMove);
+
+app.moveTodo(todoToMove, "Home");
+
+console.log("----");
+console.log(app.projects);
+app.listProjects();
