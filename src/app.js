@@ -20,14 +20,14 @@ class App {
     //and if not its creating one
     //TODO
     if (project === false) {
-      const newProjectId = this.addNewProject(projectName);
-      this.projects[newProjectId].addToProject(
-        new Todo(title, description, duedate, priority, newProjectId)
+      const newProject = this.addNewProject(projectName);
+      newProject.addToProject(
+        new Todo(title, description, duedate, priority, newProject)
       );
     } else {
       const [projectIndex, projectObj] = project;
       projectObj.addToProject(
-        new Todo(title, description, duedate, priority, projectIndex)
+        new Todo(title, description, duedate, priority, projectObj)
       );
     }
   }
@@ -39,7 +39,7 @@ class App {
   }
   addNewProject(name, description) {
     const newProject = new Project(name, description);
-    return this.projects.push(newProject) - 1;
+    return newProject;
     // return newProject;
   }
   findProject(projectName) {
@@ -66,13 +66,13 @@ class App {
   }
   moveTodo(todo, targetProjectName) {
     //I need to remove the todo from the project that it is in
-    const projectId = todo.projectId;
-    const targetProject = this.projects[projectId];
-    console.log(projectId);
+
+    const targetProject = this.todo.parentProject;
+    console.log(targetProject);
 
     targetProject.removeFromProject(todo);
     //I need to remove the todo.projectId
-    todo.projectId = null;
+    todo.parentProject = null;
 
     //I need to add the todo to the new project
     //will i receive project id or project name?
@@ -80,10 +80,11 @@ class App {
       this.projects.findProject(targetProjectName);
     targetProjectObj.addToProject(todo);
     //I need to update the todo.projectId
-    todo.projectId = targetProjectId;
+    todo.parentProject = targetProjectObj;
 
     return targetProjectObj.listTodos();
   }
+  //TODO i want to add a function to be applied to each project
   listProjects() {
     for (let project of this.projects) {
       console.log(project.toString());

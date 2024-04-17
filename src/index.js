@@ -36,3 +36,5 @@ app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
 app.listProjects();
+const todoToMove = app.projects[0];
+console.log(todoToMove);

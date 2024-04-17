@@ -9,14 +9,14 @@ export class Todo {
     description = "",
     duedate = false,
     priority = 1,
-    projectId = 0
+    parentProject
   ) {
     if (priority > 3 || priority < 1) throw new Error("invalid priority");
     this.title = title;
     this.description = description;
     this.duedate = duedate;
     this.priority = priority;
-    this.projectId = projectId;
+    this.parentProject = parentProject;
 
     //priorities will be low medium high, add a check condition
   }

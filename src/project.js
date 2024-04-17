@@ -1,7 +1,7 @@
 //maybe composition to make them share a property pointing to the same place
 //like a relational table
 export class Project {
-  #todos = [];
+  todoList = [];
   #creationDate = new Date();
   constructor(name, description = "") {
     this.name = name;
@@ -9,26 +9,26 @@ export class Project {
   }
 
   addToProject(task) {
-    this.#todos.push(task);
+    this.todoList.push(task);
     console.log(
-      `${this.#todos[
-        this.#todos.length - 1
+      `${this.todoList[
+        this.todoList.length - 1
       ].toString()} added to ${this.toString()}`
     );
-    return this.#todos;
+    return this.todoList;
   }
   removeFromProject(task) {
     const taskIndex = this.findInProject(task);
     if (taskIndex !== false) {
-      this.#todos.splice(taskIndex, 1);
+      this.todoList.splice(taskIndex, 1);
       console.log(task, " removed from todos");
     } else {
       console.log(`${task} was not found in array`);
     }
-    return this.#todos;
+    return this.todoList;
   }
   findInProject(task) {
-    const index = this.#todos.indexOf(task);
+    const index = this.todoList.indexOf(task);
     return index === -1 ? index : false;
   }
   toString() {
@@ -38,7 +38,7 @@ export class Project {
   }
   listTodos() {
     let todoListStr = "";
-    for (let todo of this.#todos) {
+    for (let todo of this.todoList) {
       todoListStr += todo.toString();
       todoListStr += "\n";
     }
