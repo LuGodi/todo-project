@@ -31,6 +31,30 @@ export class Project {
     const index = this.todoList.indexOf(task);
     return index === -1 ? false : index;
   }
+  findTodoById(id) {
+    for (let todo of this.todoList) {
+      if (todo.Id === id) {
+        return todo;
+      }
+    }
+  }
+  find(property, value) {
+    for (let todo of this.todoList) {
+      if (todo[property] === value) {
+        return todo;
+      }
+    }
+  }
+  filter(fun) {
+    const returnTodos = [];
+    for (let todo of this.todoList) {
+      const currentTodo = todo;
+      if (fun(currentTodo) === true) {
+        returnTodos.push(currentTodo);
+      }
+    }
+    return returnTodos;
+  }
   toString() {
     return `Project ${
       this.name

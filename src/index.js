@@ -41,7 +41,11 @@ const todoToMove = app.projects[0].todoList[0];
 console.log(todoToMove);
 
 app.moveTodo(todoToMove, "Home");
-
+app.addNewTodo(mock.task1);
+app.addNewTodo(mock.task1);
+app.addNewTodo(mock.task1);
+app.addNewTodo(mock.task2);
 console.log("----");
 console.log(app.projects);
 app.listProjects();
+console.log(app.findTodoById(0));

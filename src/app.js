@@ -65,22 +65,20 @@ class App {
 
     return foundIndices;
   }
+  findTodoById(todoId) {
+    for (const project of this.projects) {
+      const todo = project.find("Id", todoId);
+      if (todo instanceof Todo) return todo;
+    }
+    console.log(`todo id ${todoId} not found`);
+  }
   moveTodo(todo, newProjectName) {
-    //I need to remove the todo from the project that it is in
-
     const currentProject = todo.parentProject;
-    // console.log(currentProject);
-
     currentProject.removeFromProject(todo);
-    //I need to remove the todo.projectId
     todo.parentProject = null;
-
-    //I need to add the todo to the new project
-    //will i receive project id or project name?
     const [targetProjectId, targetProjectObj] =
       this.findProject(newProjectName);
     targetProjectObj.addToProject(todo);
-    //I need to update the todo.projectId
     todo.parentProject = targetProjectObj;
 
     return targetProjectObj.listTodos();

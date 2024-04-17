@@ -3,6 +3,7 @@
 export class Todo {
   #creationDate = new Date();
   #completed = false;
+  static todoIdControl = 0;
 
   constructor(
     title,
@@ -17,6 +18,7 @@ export class Todo {
     this.duedate = duedate;
     this.priority = priority;
     this.parentProject = parentProject;
+    this.Id = Todo.todoIdControl++;
 
     //priorities will be low medium high, add a check condition
   }
@@ -34,7 +36,7 @@ export class Todo {
   }
 
   toString() {
-    return `A todo titled - ${this.title} -, duedate set to ${
+    return `A todo titled - ${this.title} -, id ${this.Id}, duedate set to ${
       this.duedate === false ? "None" : this.duedate
     }, with priority ${this.priority} created at ${this.creationTime}`;
   }
