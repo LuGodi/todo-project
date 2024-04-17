@@ -64,9 +64,29 @@ class App {
 
     return foundIndices;
   }
+  moveTodo(todo, targetProjectName) {
+    //I need to remove the todo from the project that it is in
+    const projectId = todo.projectId;
+    const targetProject = this.projects[projectId];
+    console.log(projectId);
+
+    targetProject.removeFromProject(todo);
+    //I need to remove the todo.projectId
+    todo.projectId = null;
+
+    //I need to add the todo to the new project
+    //will i receive project id or project name?
+    const [targetProjectId, targetProjectObj] =
+      this.projects.findProject(targetProjectName);
+    targetProjectObj.addToProject(todo);
+    //I need to update the todo.projectId
+    todo.projectId = targetProjectId;
+
+    return targetProjectObj.listTodos();
+  }
   listProjects() {
     for (let project of this.projects) {
-      console.log(project);
+      console.log(project.toString());
     }
   }
 }

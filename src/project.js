@@ -32,7 +32,17 @@ export class Project {
     return index === -1 ? index : false;
   }
   toString() {
-    return `Project ${this.name}`;
+    return `Project ${
+      this.name
+    } contains the following todos:\n${this.listTodos()}`;
+  }
+  listTodos() {
+    let todoListStr = "";
+    for (let todo of this.#todos) {
+      todoListStr += todo.toString();
+      todoListStr += "\n";
+    }
+    return todoListStr;
   }
 }
 export const defaultProject = new Project("Default");
