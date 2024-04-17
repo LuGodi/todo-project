@@ -21,12 +21,12 @@ class App {
     //TODO
     if (project === false) {
       const newProject = this.addNewProject(projectName);
-      newProject.addToProject(
+      return newProject.addToProject(
         new Todo(title, description, duedate, priority, newProject)
       );
     } else {
       const [projectIndex, projectObj] = project;
-      projectObj.addToProject(
+      return projectObj.addToProject(
         new Todo(title, description, duedate, priority, projectObj)
       );
     }

@@ -15,7 +15,7 @@ export class Project {
         this.name
       }`
     );
-    return this.todoList;
+    return task;
   }
   removeFromProject(task) {
     const taskIndex = this.findInProject(task);
@@ -31,13 +31,7 @@ export class Project {
     const index = this.todoList.indexOf(task);
     return index === -1 ? false : index;
   }
-  findTodoById(id) {
-    for (let todo of this.todoList) {
-      if (todo.Id === id) {
-        return todo;
-      }
-    }
-  }
+
   find(property, value) {
     for (let todo of this.todoList) {
       if (todo[property] === value) {
@@ -45,6 +39,7 @@ export class Project {
       }
     }
   }
+  //TODO REFACTOR TO USE FILTER INSTEAD AND DELETE FINDTODOBYID AND FINDINPROJECT
   filter(fun) {
     const returnTodos = [];
     for (let todo of this.todoList) {
