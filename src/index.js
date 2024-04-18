@@ -1,5 +1,6 @@
 import { Todo } from "./todo";
 import { app } from "./app";
+import "./style.css";
 
 const screenController = {
   spanDiv: document.getElementById("main"),

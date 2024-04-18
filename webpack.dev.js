@@ -8,4 +8,12 @@ module.exports = merge(common, {
     static: "./dist",
     watchFiles: "./src/template.html",
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 });
