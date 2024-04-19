@@ -1,5 +1,6 @@
 import { Todo } from "./todo";
 import { app } from "./app";
+import { ScreenController } from "./screenController";
 import "./style.css";
 
 const screenController = {
@@ -40,8 +41,4 @@ console.log("list projects:");
 app.listProjects((project) => console.log(project.toString()));
 console.log("testing the list todos");
 
-app.listProjects((project) => {
-  project.listTodos((todo) => {
-    screenController.log(`${todo.title} ---- ${todo.parentProject.name}`);
-  });
-});
+ScreenController.renderAllProjects();

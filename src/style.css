@@ -57,3 +57,8 @@ button#add-todo-button:active {
   color: black;
   background-color: white;
 }
+
+.content {
+  display: flex;
+  column-gap: 20px;
+}

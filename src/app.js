@@ -96,7 +96,7 @@ class App {
     return targetProjectObj.listTodos();
   }
   //TODO i want to add a function to be applied to each project
-  listProjects(func) {
+  listProjects(func, func2) {
     for (let project of this.projects) {
       func(project);
       // console.log(project.toString());
