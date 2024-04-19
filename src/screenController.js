@@ -13,6 +13,7 @@ export class ScreenController {
     div.classList.add("todo");
     div.textContent = todo.title;
     return div;
+    //TODO Add more elements to display other status for the todo
   }
   static renderAllProjects() {
     const projectElements = [];
@@ -23,6 +24,20 @@ export class ScreenController {
         projectDiv.appendChild(todoDiv);
       });
       projectElements.push(projectDiv);
+    });
+    this.contentDiv.replaceChildren(...projectElements);
+  }
+
+  static renderFilteredTodos(func) {
+    const projectElements = [];
+    app.listProjects((project) => {
+      const projectDiv = ScreenController.addProject(project);
+      const filteredTodos = project.filter((todo) => func(todo) === true);
+      for (let todo of filteredTodos) {
+        const todoDiv = ScreenController.addTodo(todo);
+        projectDiv.appendChild(todoDiv);
+        projectElements.push(projectDiv);
+      }
     });
     this.contentDiv.replaceChildren(...projectElements);
   }
