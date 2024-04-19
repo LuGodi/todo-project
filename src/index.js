@@ -32,9 +32,16 @@ const mock = {
     projectName: "Home",
   },
 };
-// screenController.log("hi");
+screenController.log("hi");
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
 console.log("list projects:");
 app.listProjects((project) => console.log(project.toString()));
+console.log("testing the list todos");
+
+app.listProjects((project) => {
+  project.listTodos((todo) => {
+    screenController.log(`${todo.title} ---- ${todo.parentProject.name}`);
+  });
+});

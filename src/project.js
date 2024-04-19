@@ -55,11 +55,15 @@ export class Project {
       this.name
     } contains the following todos:\n${this.listTodos()}`;
   }
-  listTodos() {
+  listTodos(func) {
     let todoListStr = "";
     for (let todo of this.todoList) {
-      todoListStr += todo.toString();
-      todoListStr += "\n";
+      if (func === undefined) {
+        todoListStr += todo.toString();
+        todoListStr += "\n";
+      } else {
+        func(todo);
+      }
     }
     return todoListStr;
   }
