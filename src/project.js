@@ -18,7 +18,7 @@ export class Project {
     return task;
   }
   removeFromProject(task) {
-    const taskIndex = this.findInProject(task);
+    const taskIndex = this.#returnTodoIndex(task);
     if (taskIndex !== false) {
       this.todoList.splice(taskIndex, 1);
       console.log(`${task.toString()} removed from todos`);
@@ -27,7 +27,7 @@ export class Project {
     }
     return this.todoList;
   }
-  findInProject(task) {
+  #returnTodoIndex(task) {
     const index = this.todoList.indexOf(task);
     return index === -1 ? false : index;
   }

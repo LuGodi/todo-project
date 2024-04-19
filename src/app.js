@@ -37,8 +37,20 @@ class App {
   deleteTodo(todo, project) {
     project.removeFromProject(todo);
   }
-  addNewProject(name, description) {
-    const newProject = new Project(name, description);
+  changeTodoPriority(todo, priority) {
+    if (priority > 3 || priority < 1) {
+      throw new Error("priority must be 1 2 or 3");
+      return;
+    }
+    const oldPriority = todo.priority;
+    todo.priority = priority;
+    console.log(
+      `Todo ${todo.title} priority changed from ${oldPriority} to ${todo.priority}`
+    );
+    return todo;
+  }
+  addNewProject(projectName, description) {
+    const newProject = new Project(projectName, description);
     this.projects.push(newProject);
     return newProject;
     // return newProject;
@@ -55,10 +67,10 @@ class App {
   findInProjects(todo) {
     const foundIndices = [];
     for (let project of this.projects) {
-      if (project.findInProject(todo) !== false) {
+      if (project.getTaskByIndex(todo) !== false) {
         foundIndices.push({
           project: project,
-          taskIndex: project.findInProject(todo),
+          taskIndex: project.getTaskByIndex(todo),
         });
       }
     }
@@ -84,9 +96,10 @@ class App {
     return targetProjectObj.listTodos();
   }
   //TODO i want to add a function to be applied to each project
-  listProjects() {
+  listProjects(func) {
     for (let project of this.projects) {
-      console.log(project.toString());
+      func(project);
+      // console.log(project.toString());
     }
   }
 }
