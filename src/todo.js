@@ -3,6 +3,11 @@
 export class Todo {
   #creationDate = new Date();
   #completed = false;
+  static priorityToColor = {
+    1: "green",
+    2: "yellow",
+    3: "red",
+  };
   static todoIdControl = 0;
 
   constructor(
