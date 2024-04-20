@@ -24,7 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  flex-basis: 60%;
+  max-width: 500px;
   flex-grow: 1;
   gap: 10px;
   margin: 2px 0;
