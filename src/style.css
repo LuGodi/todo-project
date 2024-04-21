@@ -3,8 +3,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root {
+  --background-color: rgb(17, 24, 39);
+  --medium-priority: #ffff66;
+  --high-priority: #d81616;
+  --low-priority: #93df93;
+}
 body {
-  background-color: rgb(17, 24, 39);
+  background-color: var(--background-color);
   color: white;
 }
 .main {
@@ -61,4 +67,20 @@ button#add-todo-button:active {
 .content {
   display: flex;
   column-gap: 20px;
+}
+
+.todo {
+  border: 2px solid rgb(75, 111, 186);
+  border-radius: 8px;
+  padding: 10px 20px;
+}
+
+.todo[data-todo-priority="1"] {
+  background-color: var(--low-priority);
+}
+.todo[data-todo-priority="2"] {
+  background-color: var(--medium-priority);
+}
+.todo[data-todo-priority="3"] {
+  background-color: var(--high-priority);
 }

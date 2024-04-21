@@ -3,10 +3,12 @@
 export class Todo {
   #creationDate = new Date();
   #completed = false;
-  static priorityToColor = {
-    1: "green",
-    2: "yellow",
-    3: "red",
+
+  //TODO this isnt supposed to be here I think
+  static #priorityToFlag = {
+    1: "low-priority",
+    2: "medium-priority",
+    3: "high-priority",
   };
   static todoIdControl = 0;
 
@@ -27,7 +29,9 @@ export class Todo {
 
     //priorities will be low medium high, add a check condition
   }
-
+  get colorClass() {
+    return Todo.#priorityToFlag[this.priority];
+  }
   get creationTime() {
     //add here the date-fns
     return this.#creationDate;

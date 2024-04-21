@@ -29,7 +29,7 @@ const mock = {
     title: "walk dog",
     description: "",
     duedate: "",
-    priority: 3,
+    priority: 2,
     projectName: "Home",
   },
 };
@@ -42,4 +42,3 @@ app.listProjects((project) => console.log(project.toString()));
 console.log("testing the list todos");
 
 ScreenController.renderAllProjects();
-ScreenController.renderFilteredTodos((todo) => todo.title === "walk dog");
