@@ -27,8 +27,8 @@ const mock = {
   },
   task3: {
     title: "walk dog",
-    description: "",
-    duedate: "",
+    description: "boo",
+    duedate: "20/02/2021",
     priority: 2,
     projectName: "Home",
   },

@@ -73,8 +73,12 @@ button#add-todo-button:active {
   border: 2px solid rgb(75, 111, 186);
   border-radius: 8px;
   padding: 10px 20px;
+  width: 20ch;
+  color: var(--background-color);
 }
-
+.todo > .hiddenDetails {
+  display: none;
+}
 .todo[data-todo-priority="1"] {
   background-color: var(--low-priority);
 }
