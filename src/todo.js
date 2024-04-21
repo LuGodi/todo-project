@@ -23,9 +23,7 @@ export class Todo {
 
     //priorities will be low medium high, add a check condition
   }
-  get colorClass() {
-    return Todo.#priorityToFlag[this.priority];
-  }
+
   get creationTime() {
     //add here the date-fns
     return this.#creationDate;
