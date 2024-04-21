@@ -1,11 +1,7 @@
 import { app } from "./app";
 export class ScreenController {
   static contentDiv = document.querySelector(".content");
-  static #priorityToClass = {
-    1: "low-priority",
-    2: "medium-priority",
-    3: "high-priority",
-  };
+
   static addProject(project) {
     const div = document.createElement("div");
     div.classList.add("project");
@@ -17,7 +13,6 @@ export class ScreenController {
     const div = document.createElement("div");
     div.classList.add("todo");
     div.textContent = todo.title;
-    const todoColor = ScreenController.#priorityToClass[todo.priority];
     div.dataset.todoId = todo.Id;
     // div.classList.add(todoColor);
     div.dataset.todoPriority = todo.priority;
