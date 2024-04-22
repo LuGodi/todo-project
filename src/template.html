@@ -29,22 +29,28 @@
         </div>
 
         <div>
-          <fieldset>
+          <fieldset id="priority-fieldset">
             <legend>Priority</legend>
-            <input
-              type="radio"
-              id="low"
-              name="priority"
-              value="1"
-              checked /><label for="low">Low </label><br /><input
-              type="radio"
-              id="medium"
-              name="priority"
-              value="2" /><label for="medium">Medium</label><br />
-            <input type="radio" id="high" name="priority" value="3" /><label
-              for="high"
-              >High</label
-            ><br />
+            <div>
+              <input
+                type="radio"
+                id="low"
+                name="priority"
+                value="1"
+                checked /><label for="low">Low </label>
+            </div>
+            <div>
+              <input type="radio" id="medium" name="priority" value="2" /><label
+                for="medium"
+                >Medium</label
+              >
+            </div>
+            <div>
+              <input type="radio" id="high" name="priority" value="3" /><label
+                for="high"
+                >High</label
+              >
+            </div>
           </fieldset>
         </div>
         <div>
@@ -52,13 +58,41 @@
           <input type="text" placeholder="optional" id="description" />
         </div>
         <div>
-          <fieldset>
+          <label for="duedate">Due date</label>
+          <input type="date" />
+        </div>
+        <div>
+          <fieldset id="project-fieldset">
             <legend>Project</legend>
-            <label for="parent-project">Project Name</label>
-            <select name="parent-project" id="parent-project">
-              <option value="Default">Default</option>
-            </select>
+            <div class="project-div">
+              <input
+                type="radio"
+                id="new-project-radio"
+                name="project-selection"
+                value="new" />
+              <div>
+                <label for="new-project-radio">Add a new Project</label>
+                <input type="text" capitalize placeholder="project name" />
+              </div>
+            </div>
+            <div class="project-div">
+              <input
+                type="radio"
+                name="project-selection"
+                value="existing"
+                id="existing-project-radio" />
+              <div>
+                <label for="parent-project">Add to existing project</label>
+                <select name="parent-project" id="parent-project">
+                  <option value="Default">Default</option>
+                </select>
+              </div>
+            </div>
           </fieldset>
+        </div>
+        <div class="submit-close-button-container">
+          <button type="submit">Submit</button>
+          <button>Close</button>
         </div>
       </form>
     </dialog>

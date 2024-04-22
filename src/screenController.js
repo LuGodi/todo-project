@@ -10,6 +10,12 @@ export class ScreenController {
   static formCache = {
     projectSelect: document.querySelector("select#parent-project"),
     dialog: document.querySelector("#add-todo-form"),
+    inputRadio: {
+      "new-project-radio": document.querySelector("#new-project-radio"),
+      "existing-project-radio": document.querySelector(
+        "#existing-project-radio"
+      ),
+    },
   };
   static initEventListeners() {
     this.buttons.addTodo.addEventListener("click", (event) => {
@@ -108,6 +114,11 @@ export class ScreenController {
     });
     console.log(optionsToAdd);
     projectSelect.replaceChildren(...optionsToAdd);
+  }
+  //TODO add form logic for new project or not
+  static readForm() {
+    if (this.formCache.inputRadio["new-project-radio"].checked === true)
+      console.log("the user wants a new project ");
   }
   //   static #renderAddTodoForm {
   //     const nameInput = document.createElement("input")

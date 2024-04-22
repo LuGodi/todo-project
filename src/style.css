@@ -93,13 +93,42 @@ dialog {
   background-color: var(--background-color);
   color: white;
   padding: 20px;
+  margin: auto;
+  width: 40vh;
+}
+dialog::backdrop {
+  background-color: #0000001a;
 }
 dialog > form {
   display: flex;
   flex-direction: column;
   row-gap: 15px;
 }
+
 dialog > form div {
   display: flex;
   flex-direction: column;
+}
+
+dialog form fieldset#priority-fieldset div {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+}
+fieldset div.project-div {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+#new-project-radio:not(:checked) + div {
+  pointer-events: none;
 }
