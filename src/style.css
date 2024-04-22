@@ -88,3 +88,18 @@ button#add-todo-button:active {
 .todo[data-todo-priority="3"] {
   background-color: var(--high-priority);
 }
+
+dialog {
+  background-color: var(--background-color);
+  color: white;
+  padding: 20px;
+}
+dialog > form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 15px;
+}
+dialog > form div {
+  display: flex;
+  flex-direction: column;
+}

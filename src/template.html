@@ -10,8 +10,8 @@
       <div class="header">
         <button id="add-todo-button">Add todo</button>
         <div class="header-right">
-          <button>Add project</button>
-          <button>Remove Project</button>
+          <button id="add-project-button">Add project</button>
+          <button id="remove-project-button">Remove Project</button>
         </div>
         <div class="header-right">
           <span>Todo counter</span>
@@ -19,6 +19,48 @@
       </div>
       <div class="content">this is the div where the projects go</div>
     </div>
-    <span id="main"></span>
+    <!--DIALOG FORM MODAL-->
+
+    <dialog id="add-todo-form">
+      <form method="dialog">
+        <div>
+          <label for="task-name">Name</label>
+          <input type="text" name="task-name" id="name" required />
+        </div>
+
+        <div>
+          <fieldset>
+            <legend>Priority</legend>
+            <input
+              type="radio"
+              id="low"
+              name="priority"
+              value="1"
+              checked /><label for="low">Low </label><br /><input
+              type="radio"
+              id="medium"
+              name="priority"
+              value="2" /><label for="medium">Medium</label><br />
+            <input type="radio" id="high" name="priority" value="3" /><label
+              for="high"
+              >High</label
+            ><br />
+          </fieldset>
+        </div>
+        <div>
+          <label for="description">Description</label>
+          <input type="text" placeholder="optional" id="description" />
+        </div>
+        <div>
+          <fieldset>
+            <legend>Project</legend>
+            <label for="parent-project">Project Name</label>
+            <select name="parent-project" id="parent-project">
+              <option value="Default">Default</option>
+            </select>
+          </fieldset>
+        </div>
+      </form>
+    </dialog>
   </body>
 </html>

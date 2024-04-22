@@ -3,15 +3,6 @@ import { app } from "./app";
 import { ScreenController } from "./screenController";
 import "./style.css";
 
-const screenController = {
-  spanDiv: document.getElementById("main"),
-  log(msg) {
-    const p = document.createElement("p");
-    p.textContent = msg;
-    this.spanDiv.appendChild(p);
-  },
-};
-
 const mock = {
   task1: {
     title: "dishes",
@@ -33,7 +24,6 @@ const mock = {
     projectName: "Home",
   },
 };
-screenController.log("hi");
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
@@ -42,3 +32,4 @@ app.listProjects((project) => console.log(project.toString()));
 console.log("testing the list todos");
 
 ScreenController.renderAllProjects();
+ScreenController.initEventListeners();

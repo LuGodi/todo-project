@@ -1,8 +1,21 @@
 import { app } from "./app";
 export class ScreenController {
   static contentDiv = document.querySelector(".content");
+  static buttons = {
+    addTodo: document.querySelector("#add-todo-button"),
+    addProject: document.querySelector("#add-project-button"),
+    removeProject: document.querySelector("#remove-project-button"),
+  };
   static #cacheDomTodos = [];
-
+  static formCache = {
+    projectSelect: document.querySelector("select#parent-project"),
+    dialog: document.querySelector("#add-todo-form"),
+  };
+  static initEventListeners() {
+    this.buttons.addTodo.addEventListener("click", (event) => {
+      this.#openDialog();
+    });
+  }
   static #emptyCacheDomTodos() {
     this.#cacheDomTodos.splice(0, this.#cacheDomTodos.length);
   }
@@ -28,7 +41,7 @@ export class ScreenController {
       ScreenController.#createExpandedTodoInformation(todo);
     div.append(divExtraInformation);
     ScreenController.#cacheDomTodos.push(div);
-    div.addEventListener("click", this.expandTodo);
+    div.addEventListener("click", this.#expandTodo);
     return div;
     //TODO Add more elements to display other status for the todo
   }
@@ -71,10 +84,33 @@ export class ScreenController {
     return divExpanded;
   }
 
-  static expandTodo(todoDatasetId) {
+  static #expandTodo(todoDatasetId) {
     console.log("click");
     console.log(this);
     const targetExtraInfo = this.lastElementChild;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }
+
+  static #openDialog() {
+    console.log("click");
+    //error was being throw because value of this inside event listener is the window object
+    this.formCache.dialog.showModal();
+    this.#populateForm();
+  }
+  static #populateForm() {
+    const projectSelect = ScreenController.formCache.projectSelect;
+    const optionsToAdd = [];
+    app.listProjects((project) => {
+      const selectOption = document.createElement("option");
+      selectOption.value = project.name;
+      selectOption.textContent = project.name;
+      optionsToAdd.push(selectOption);
+    });
+    console.log(optionsToAdd);
+    projectSelect.replaceChildren(...optionsToAdd);
+  }
+  //   static #renderAddTodoForm {
+  //     const nameInput = document.createElement("input")
+  //     const priorityInput = document.createElement("")
+  //   }
 }
