@@ -16,9 +16,16 @@ export class FormController {
   };
 
   static formEventListeners() {
-    this.addTodoForm.submitBtn.addEventListener("click", (event) => {
-      this.readAddTodoForm();
-      console.log("clicked submit");
+    this.addTodoForm.dialog.addEventListener("click", (event) => {
+      if (event.target.dataset.action === "submit") {
+        this.readAddTodoForm();
+        console.log("clicked submit");
+        event.preventDefault();
+        return;
+      } else if (event.target.dataset.action === "close") {
+        this.addTodoForm.dialog.close();
+        return;
+      }
     });
     //now I need the events to delegate to the project field to avoid two event listeners calling the same function
     this.addTodoForm.projectFieldset.addEventListener("change", (event) => {
@@ -45,12 +52,7 @@ export class FormController {
       );
     }
   }
-  //   static #openDialog() {
-  //     console.log("click");
-  //     //error was being throw because value of this inside event listener is the window object
-  //     this.formCache.addTodoForm.dialog.showModal();
-  //     this.#populateAddTodoForm();
-  //   }
+
   static populateAddTodoForm(dataAttribute) {
     const projectSelect = this.addTodoForm.addExistingProject.selectInput;
     const optionsToAdd = [];
