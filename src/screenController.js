@@ -1,4 +1,5 @@
 import { app } from "./app";
+import { FormController } from "./FormController";
 export class ScreenController {
   static contentDiv = document.querySelector(".content");
   static buttons = {
@@ -8,19 +9,37 @@ export class ScreenController {
   };
   static #cacheDomTodos = [];
   static formCache = {
-    projectSelect: document.querySelector("select#parent-project"),
-    dialog: document.querySelector("#add-todo-form"),
-    inputRadio: {
-      "new-project-radio": document.querySelector("#new-project-radio"),
-      "existing-project-radio": document.querySelector(
-        "#existing-project-radio"
-      ),
+    addTodoForm: {
+      projectSelect: document.querySelector("select#parent-project"),
+      dialog: document.querySelector("#add-todo-form"),
+      inputRadio: {
+        "new-project-radio": document.querySelector("#new-project-radio"),
+        "existing-project-radio": document.querySelector(
+          "#existing-project-radio"
+        ),
+      },
+      submitBtn: document.querySelector("#submit-button"),
+      submitBtnFunc: function (event) {
+        console.log(this.parentElement.parentElement);
+      },
+      closeBtn: document.querySelector("#close-dialog-button"),
     },
   };
   static initEventListeners() {
     this.buttons.addTodo.addEventListener("click", (event) => {
       this.#openDialog();
     });
+
+    // this.formCache.addTodoForm.submitBtn.addEventListener(
+    //   "click",
+    //   this.formCache.addTodoForm.submitBtnFunc
+    // );
+  }
+  static #openDialog() {
+    console.log("click");
+    //error was being throw because value of this inside event listener is the window object
+    this.formCache.addTodoForm.dialog.showModal();
+    FormController.populateAddTodoForm();
   }
   static #emptyCacheDomTodos() {
     this.#cacheDomTodos.splice(0, this.#cacheDomTodos.length);
@@ -47,6 +66,7 @@ export class ScreenController {
       ScreenController.#createExpandedTodoInformation(todo);
     div.append(divExtraInformation);
     ScreenController.#cacheDomTodos.push(div);
+    //TODO delegate the event listener to avoid adding a lot of listeners
     div.addEventListener("click", this.#expandTodo);
     return div;
     //TODO Add more elements to display other status for the todo
@@ -96,32 +116,4 @@ export class ScreenController {
     const targetExtraInfo = this.lastElementChild;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }
-
-  static #openDialog() {
-    console.log("click");
-    //error was being throw because value of this inside event listener is the window object
-    this.formCache.dialog.showModal();
-    this.#populateForm();
-  }
-  static #populateForm() {
-    const projectSelect = ScreenController.formCache.projectSelect;
-    const optionsToAdd = [];
-    app.listProjects((project) => {
-      const selectOption = document.createElement("option");
-      selectOption.value = project.name;
-      selectOption.textContent = project.name;
-      optionsToAdd.push(selectOption);
-    });
-    console.log(optionsToAdd);
-    projectSelect.replaceChildren(...optionsToAdd);
-  }
-  //TODO add form logic for new project or not
-  static readForm() {
-    if (this.formCache.inputRadio["new-project-radio"].checked === true)
-      console.log("the user wants a new project ");
-  }
-  //   static #renderAddTodoForm {
-  //     const nameInput = document.createElement("input")
-  //     const priorityInput = document.createElement("")
-  //   }
 }

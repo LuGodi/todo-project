@@ -1,5 +1,6 @@
 import { Todo } from "./todo";
 import { app } from "./app";
+import { FormController } from "./FormController";
 import { ScreenController } from "./screenController";
 import "./style.css";
 
@@ -33,3 +34,4 @@ console.log("testing the list todos");
 
 ScreenController.renderAllProjects();
 ScreenController.initEventListeners();
+FormController.formEventListeners();

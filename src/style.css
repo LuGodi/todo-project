@@ -128,7 +128,7 @@ fieldset div.project-div {
   gap: 5px;
   margin-top: 10px;
 }
-
+/* 
 #new-project-radio:not(:checked) + div {
   pointer-events: none;
-}
+} */
