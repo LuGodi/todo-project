@@ -8,9 +8,11 @@
   <body>
     <div class="main">
       <div class="header">
-        <button id="add-todo-button">Add todo</button>
+        <button id="add-todo-button" data-dialog="add-todo">Add todo</button>
         <div class="header-right">
-          <button id="add-project-button">Add project</button>
+          <button id="add-project-button" data-dialog="add-project">
+            Add project
+          </button>
           <button id="remove-project-button">Remove Project</button>
         </div>
         <div class="header-right">
@@ -72,7 +74,11 @@
                 value="new" />
               <div>
                 <label for="new-project-radio">Add a new Project</label>
-                <input type="text" capitalize placeholder="project name" />
+                <input
+                  type="text"
+                  capitalize
+                  placeholder="project name"
+                  id="new-project-input-name" />
               </div>
             </div>
             <div class="project-div">
@@ -91,8 +97,10 @@
           </fieldset>
         </div>
         <div class="submit-close-button-container">
-          <button type="submit">Submit</button>
-          <button>Close</button>
+          <button type="submit" id="submit-button" data-action="submit">
+            Submit
+          </button>
+          <button id="close-dialog-button" data-action="close">Close</button>
         </div>
       </form>
     </dialog>
