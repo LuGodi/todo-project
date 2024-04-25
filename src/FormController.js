@@ -1,7 +1,9 @@
 import { app } from "./app";
+import { ScreenController } from "./screenController";
 export class FormController {
   static addTodoForm = {
-    dialog: document.querySelector("#add-todo-form"),
+    dialog: document.querySelector("#add-todo-dialog"),
+    formElement: document.querySelector("#add-todo-form"),
     projectFieldset: document.querySelector("#project-fieldset"),
     addNewProject: {
       radio: document.querySelector("#new-project-radio"),
@@ -18,7 +20,8 @@ export class FormController {
   static formEventListeners() {
     this.addTodoForm.dialog.addEventListener("click", (event) => {
       if (event.target.dataset.action === "submit") {
-        this.readAddTodoForm();
+        console.log(event.target.form);
+        this.readForm(event.target.form);
         console.log("clicked submit");
         event.preventDefault();
         return;
@@ -34,12 +37,34 @@ export class FormController {
       }
     });
   }
-  static readAddTodoForm() {
-    this.#checkNewProject();
+  static readForm(formElement) {
+    const formData = new FormData(formElement);
+
+    // console.log(formData);
+    // for (const data of formData) {
+    //   console.log(data);
+    // }
+    console.log(formData.get("task-name"));
+    //Check which form was submitted
+    if (formElement === this.addTodoForm.formElement) {
+      app.addNewTodo({
+        title: formData.get("task-name"),
+        description: formData.get("description"),
+        duedate: formData.get("duedate"),
+        priority: formData.get("priority"),
+        projectName:
+          formData.get("project-selection") === "existing"
+            ? formData.get("parent-project")
+            : formData.get("new-project-name"),
+      });
+      //TODO Add new project
+    }
+    ScreenController.renderAllProjects();
   }
   static #checkNewProject() {
     if (this.addTodoForm.addNewProject.radio.checked === true) {
       console.log("user wants a new project");
+      this.addTodoForm.addNewProject.textInput.setAttribute("required", "");
       this.addTodoForm.addExistingProject.selectInput.setAttribute(
         "disabled",
         ""

@@ -8,23 +8,7 @@ export class ScreenController {
     removeProject: document.querySelector("#remove-project-button"),
   };
   static #cacheDomTodos = [];
-  static formCache = {
-    addTodoForm: {
-      projectSelect: document.querySelector("select#parent-project"),
-      dialog: document.querySelector("#add-todo-form"),
-      inputRadio: {
-        "new-project-radio": document.querySelector("#new-project-radio"),
-        "existing-project-radio": document.querySelector(
-          "#existing-project-radio"
-        ),
-      },
-      submitBtn: document.querySelector("#submit-button"),
-      submitBtnFunc: function (event) {
-        console.log(this.parentElement.parentElement);
-      },
-      closeBtn: document.querySelector("#close-dialog-button"),
-    },
-  };
+
   static initEventListeners() {
     this.buttons.addTodo.addEventListener("click", (event) => {
       this.#openDialog();
@@ -38,7 +22,7 @@ export class ScreenController {
   static #openDialog() {
     console.log("click");
     //error was being throw because value of this inside event listener is the window object
-    this.formCache.addTodoForm.dialog.showModal();
+    FormController.addTodoForm.dialog.showModal();
     FormController.populateAddTodoForm();
   }
   static #emptyCacheDomTodos() {

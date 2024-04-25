@@ -23,8 +23,8 @@
     </div>
     <!--DIALOG FORM MODAL-->
 
-    <dialog id="add-todo-form">
-      <form method="dialog">
+    <dialog id="add-todo-dialog">
+      <form method="dialog" id="add-todo-form">
         <div>
           <label for="task-name">Name</label>
           <input type="text" name="task-name" id="name" required />
@@ -61,7 +61,7 @@
         </div>
         <div>
           <label for="duedate">Due date</label>
-          <input type="date" />
+          <input type="date" name="duedate" id="duedate" />
         </div>
         <div>
           <fieldset id="project-fieldset">
@@ -78,7 +78,8 @@
                   type="text"
                   capitalize
                   placeholder="project name"
-                  id="new-project-input-name" />
+                  id="new-project-input-name"
+                  name="new-project-name" />
               </div>
             </div>
             <div class="project-div">
@@ -86,7 +87,8 @@
                 type="radio"
                 name="project-selection"
                 value="existing"
-                id="existing-project-radio" />
+                id="existing-project-radio"
+                checked />
               <div>
                 <label for="parent-project">Add to existing project</label>
                 <select name="parent-project" id="parent-project">
@@ -97,9 +99,7 @@
           </fieldset>
         </div>
         <div class="submit-close-button-container">
-          <button type="submit" id="submit-button" data-action="submit">
-            Submit
-          </button>
+          <button id="submit-button" data-action="submit">Submit</button>
           <button id="close-dialog-button" data-action="close" type="button">
             Close
           </button>
