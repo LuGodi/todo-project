@@ -1,6 +1,7 @@
 import { app } from "./app";
 import { ScreenController } from "./screenController";
 export class FormController {
+  static forms = document.querySelectorAll("form");
   static addTodoForm = {
     dialog: document.querySelector("#add-todo-dialog"),
     formElement: document.querySelector("#add-todo-form"),
@@ -19,16 +20,18 @@ export class FormController {
 
   static formEventListeners() {
     this.addTodoForm.dialog.addEventListener("click", (event) => {
-      if (event.target.dataset.action === "submit") {
-        console.log(event.target.form);
-        this.readForm(event.target.form);
-        console.log("clicked submit");
-        event.preventDefault();
-        return;
-      } else if (event.target.dataset.action === "close") {
+      if (event.target.dataset.action === "close") {
         this.addTodoForm.dialog.close();
         return;
       }
+    });
+    this.addTodoForm.formElement.addEventListener("submit", (event) => {
+      console.log(event.type);
+      console.log(event.target);
+      this.readForm(event.target);
+      console.log("clicked submit");
+
+      return;
     });
     //now I need the events to delegate to the project field to avoid two event listeners calling the same function
     this.addTodoForm.projectFieldset.addEventListener("change", (event) => {
