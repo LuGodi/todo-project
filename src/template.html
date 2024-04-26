@@ -24,6 +24,7 @@
     <!--DIALOG FORM MODAL-->
 
     <dialog id="add-todo-dialog">
+      <h3 class="dialog-heading">Add New Todo</h3>
       <form method="dialog" id="add-todo-form">
         <div>
           <label for="task-name">Name</label>
@@ -99,9 +100,35 @@
           </fieldset>
         </div>
         <div class="submit-close-button-container">
-          <button id="submit-button" data-action="submit">Submit</button>
-          <button id="close-dialog-button" data-action="close" type="button">
+          <button class="submit-button" data-action="submit" type="submit">
+            Submit
+          </button>
+          <button
+            class="close-dialog-button"
+            data-action="close"
+            type="button"
+            formnovalidate>
             Close
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="add-project-dialog" open>
+      <h3 class="dialog-heading">Add new project</h3>
+      <form id="add-project-form" method="dialog">
+        <div>
+          <label for="project-name">Project name</label>
+          <input type="text" id="project-name" name="project-name" required />
+        </div>
+        <div class="submit-close-button-container">
+          <button class="submit-button" data-action="submit">
+            Create new project
+          </button>
+          <button
+            class="close-dialog-button"
+            data-action="close"
+            formnovalidate>
+            Cancel
           </button>
         </div>
       </form>
