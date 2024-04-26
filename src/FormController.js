@@ -1,7 +1,10 @@
 import { app } from "./app";
 import { ScreenController } from "./screenController";
 export class FormController {
-  static forms = document.querySelectorAll("form");
+  static forms = document.forms;
+  static addProjectForm = {
+    dialog: document.querySelector("#add-project-dialog"),
+  };
   static addTodoForm = {
     dialog: document.querySelector("#add-todo-dialog"),
     formElement: document.querySelector("#add-todo-form"),
@@ -14,25 +17,35 @@ export class FormController {
       radio: document.querySelector("#existing-project-radio"),
       selectInput: document.querySelector("#parent-project"),
     },
-    submitBtn: document.querySelector("#submit-button"),
-    closeBtn: document.querySelector("#close-dialog-button"),
+    // submitBtn: document.querySelector("#submit-button"),
+    // closeBtn: document.querySelector("#close-dialog-button"),
   };
 
   static formEventListeners() {
+    for (let form of this.forms) {
+      form.addEventListener("submit", (event) => {
+        this.#readForm(event.target);
+        ScreenController.renderAllProjects();
+        event.target.reset();
+        return;
+      });
+    }
+
     this.addTodoForm.dialog.addEventListener("click", (event) => {
       if (event.target.dataset.action === "close") {
         this.addTodoForm.dialog.close();
         return;
       }
     });
-    this.addTodoForm.formElement.addEventListener("submit", (event) => {
-      console.log(event.type);
-      console.log(event.target);
-      this.readForm(event.target);
-      console.log("clicked submit");
-
-      return;
-    });
+    // this.addTodoForm.formElement.addEventListener("submit", (event) => {
+    //   console.log(event.type);
+    //   console.log(event.target);
+    //   this.readForm(event.target);
+    //   console.log("clicked submit");
+    //   ScreenController.renderAllProjects();
+    //   event.target.reset();
+    //   return;
+    // });
     //now I need the events to delegate to the project field to avoid two event listeners calling the same function
     this.addTodoForm.projectFieldset.addEventListener("change", (event) => {
       if (event.target.tagName === "INPUT") {
@@ -40,16 +53,11 @@ export class FormController {
       }
     });
   }
-  static readForm(formElement) {
+  static #readForm(formElement) {
     const formData = new FormData(formElement);
 
-    // console.log(formData);
-    // for (const data of formData) {
-    //   console.log(data);
-    // }
-    console.log(formData.get("task-name"));
-    //Check which form was submitted
     if (formElement === this.addTodoForm.formElement) {
+      console.log(typeof formData.get("duedate"));
       app.addNewTodo({
         title: formData.get("task-name"),
         description: formData.get("description"),
@@ -61,8 +69,9 @@ export class FormController {
             : formData.get("new-project-name"),
       });
       //TODO Add new project
+    } else if (formElement === this.forms["add-project-form"]) {
+      app.addNewProject(formData.get("project-name"));
     }
-    ScreenController.renderAllProjects();
   }
   static #checkNewProject() {
     if (this.addTodoForm.addNewProject.radio.checked === true) {

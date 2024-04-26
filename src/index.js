@@ -35,3 +35,4 @@ console.log("testing the list todos");
 ScreenController.renderAllProjects();
 ScreenController.initEventListeners();
 FormController.formEventListeners();
+console.log(FormController.forms);

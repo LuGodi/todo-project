@@ -38,7 +38,7 @@ export class Todo {
 
   toString() {
     return `A todo titled - ${this.title} -, id ${this.Id}, duedate set to ${
-      this.duedate === false ? "None" : this.duedate
+      this.duedate === false || this.duedate === "" ? "None" : this.duedate
     }, with priority ${this.priority} created at ${this.creationTime}`;
   }
 }

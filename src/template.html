@@ -8,9 +8,9 @@
   <body>
     <div class="main">
       <div class="header">
-        <button id="add-todo-button" data-dialog="add-todo">Add todo</button>
+        <button id="add-todo-button" data-dialog="addTodoForm">Add todo</button>
         <div class="header-right">
-          <button id="add-project-button" data-dialog="add-project">
+          <button id="add-project-button" data-dialog="addProjectForm">
             Add project
           </button>
           <button id="remove-project-button">Remove Project</button>
@@ -28,7 +28,12 @@
       <form method="dialog" id="add-todo-form">
         <div>
           <label for="task-name">Name</label>
-          <input type="text" name="task-name" id="name" required />
+          <input
+            type="text"
+            name="task-name"
+            id="name"
+            required
+            autocomplete="off" />
         </div>
 
         <div>
@@ -113,7 +118,7 @@
         </div>
       </form>
     </dialog>
-    <dialog id="add-project-dialog" open>
+    <dialog id="add-project-dialog">
       <h3 class="dialog-heading">Add new project</h3>
       <form id="add-project-form" method="dialog">
         <div>
