@@ -76,6 +76,12 @@ button#add-todo-button:active {
   width: 20ch;
   color: var(--background-color);
 }
+.todo p.duedate {
+}
+.todo p.duedate::before {
+  content: "due";
+  margin-right: 4px;
+}
 .todo > .hiddenDetails {
   display: none;
 }

@@ -1,5 +1,5 @@
 //should the error handling part be here or in a separate form validation function
-
+import { formatRelative, formatDistanceToNow } from "date-fns";
 export class Todo {
   #creationDate = new Date();
   #completed = false;
@@ -26,7 +26,15 @@ export class Todo {
 
   get creationTime() {
     //add here the date-fns
-    return this.#creationDate;
+    const relativeTime = formatRelative(this.#creationDate, Date());
+    return relativeTime;
+  }
+  get timeToDuedate() {
+    if (this.duedate === "" || this.duedate === false) {
+      return;
+    }
+    const timeToDuedate = formatDistanceToNow(this.duedate);
+    return timeToDuedate;
   }
   set completed(flag) {
     if (flag === true) console.log(`task ${this.title} completed`);

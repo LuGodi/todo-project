@@ -61,7 +61,7 @@ export class FormController {
       app.addNewTodo({
         title: formData.get("task-name"),
         description: formData.get("description"),
-        duedate: formData.get("duedate"),
+        duedate: new Date(formData.get("duedate")),
         priority: formData.get("priority"),
         projectName:
           formData.get("project-selection") === "existing"

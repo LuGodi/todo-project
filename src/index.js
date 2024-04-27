@@ -8,19 +8,19 @@ const mock = {
   task1: {
     title: "dishes",
     description: "do the dishes",
-    duedate: "12-03-2024",
+    duedate: "",
     priority: 3,
   },
   task2: {
     title: "study",
     description: "math today",
-    duedate: "15-03-2024",
+    duedate: "",
     priority: 1,
   },
   task3: {
     title: "walk dog",
     description: "boo",
-    duedate: "20/02/2021",
+    duedate: "",
     priority: 2,
     projectName: "Home",
   },

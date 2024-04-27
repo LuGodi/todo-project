@@ -39,9 +39,10 @@ export class ScreenController {
     div.classList.add("todo");
     const divParagraphTitle = document.createElement("p");
     const divParagraphDueDate = document.createElement("p");
+    divParagraphDueDate.classList.add("duedate");
     divParagraphTitle.textContent = todo.title;
     divParagraphDueDate.textContent =
-      todo.duedate === "" ? "No duedate" : todo.duedate;
+      todo.duedate === "" ? "No duedate" : todo.timeToDuedate;
 
     div.append(divParagraphTitle, divParagraphDueDate);
     div.dataset.todoId = todo.Id;
