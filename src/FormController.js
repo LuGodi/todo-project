@@ -1,5 +1,6 @@
 import { app } from "./app";
 import { ScreenController } from "./screenController";
+import { isPast, format } from "date-fns";
 export class FormController {
   static forms = document.forms;
   static addProjectForm = {
@@ -9,6 +10,7 @@ export class FormController {
     dialog: document.querySelector("#add-todo-dialog"),
     formElement: document.querySelector("#add-todo-form"),
     projectFieldset: document.querySelector("#project-fieldset"),
+    duedate: document.querySelector("#duedate"),
     addNewProject: {
       radio: document.querySelector("#new-project-radio"),
       textInput: document.querySelector("#new-project-input-name"),
@@ -31,12 +33,13 @@ export class FormController {
       });
     }
 
-    this.addTodoForm.dialog.addEventListener("click", (event) => {
-      if (event.target.dataset.action === "close") {
-        this.addTodoForm.dialog.close();
-        return;
-      }
-    });
+    //not necessary anymore because formnovalidate was added
+    // this.addTodoForm.dialog.addEventListener("click", (event) => {
+    //   if (event.target.dataset.action === "close") {
+    //     this.addTodoForm.dialog.close();
+    //     return;
+    //   }
+    // });
     // this.addTodoForm.formElement.addEventListener("submit", (event) => {
     //   console.log(event.type);
     //   console.log(event.target);
@@ -52,16 +55,25 @@ export class FormController {
         this.#checkNewProject();
       }
     });
+    this.addTodoForm.duedate.addEventListener("change", (event) =>
+      this.#checkValidDuedate()
+    );
   }
   static #readForm(formElement) {
     const formData = new FormData(formElement);
+    for (let data of formData) {
+      console.log(data);
+    }
 
     if (formElement === this.addTodoForm.formElement) {
-      console.log(typeof formData.get("duedate"));
+      console.log(formData.has("duedate"));
       app.addNewTodo({
         title: formData.get("task-name"),
         description: formData.get("description"),
-        duedate: new Date(formData.get("duedate")),
+        duedate:
+          formData.get("duedate") === ""
+            ? false
+            : new Date(formData.get("duedate")),
         priority: formData.get("priority"),
         projectName:
           formData.get("project-selection") === "existing"
@@ -72,6 +84,9 @@ export class FormController {
     } else if (formElement === this.forms["add-project-form"]) {
       app.addNewProject(formData.get("project-name"));
     }
+  }
+  static #checkValidDuedate() {
+    return isPast(this.addTodoForm.duedate);
   }
   static #checkNewProject() {
     if (this.addTodoForm.addNewProject.radio.checked === true) {
@@ -91,6 +106,10 @@ export class FormController {
   }
 
   static populateAddTodoForm(dataAttribute) {
+    this.#populateExistingProjects();
+    this.#setMinValidDuedate();
+  }
+  static #populateExistingProjects() {
     const projectSelect = this.addTodoForm.addExistingProject.selectInput;
     const optionsToAdd = [];
     app.listProjects((project) => {
@@ -101,5 +120,8 @@ export class FormController {
     });
     console.log(optionsToAdd);
     projectSelect.replaceChildren(...optionsToAdd);
+  }
+  static #setMinValidDuedate() {
+    this.addTodoForm.duedate.setAttribute("min", format(Date(), "yyyy-MM-dd"));
   }
 }
