@@ -69,10 +69,11 @@ export class ScreenController {
     return div;
   }
 
-  static #addSvgIcon(iconText) {
+  static #addSvgIcon(iconText, iconDataAttribute) {
     const icon = document.createElement("span");
     icon.classList.add("material-symbols-outlined");
     icon.textContent = iconText;
+    icon.dataset.iconAction = iconText;
     return icon;
   }
   static renderAllProjects() {
