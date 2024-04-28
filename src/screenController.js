@@ -1,5 +1,6 @@
 import { app } from "./app";
 import { FormController } from "./FormController";
+import deleteIcon from "../assets/delete_icon.svg";
 export class ScreenController {
   static contentDiv = document.querySelector(".content");
   static buttons = {
@@ -37,14 +38,18 @@ export class ScreenController {
   static #addTodo(todo) {
     const div = document.createElement("div");
     div.classList.add("todo");
-    const divParagraphTitle = document.createElement("p");
+
+    const divHeader = document.createElement("div");
+    divHeader.classList.add("todo-header");
+    const divTaskName = document.createElement("span");
+    divHeader.append(divTaskName, this.#renderTodoOptions());
     const divParagraphDueDate = document.createElement("p");
     divParagraphDueDate.classList.add("duedate");
-    divParagraphTitle.textContent = todo.title;
+    divTaskName.textContent = todo.title;
     divParagraphDueDate.textContent =
       todo.duedate === "" ? "No duedate" : todo.timeToDuedate;
 
-    div.append(divParagraphTitle, divParagraphDueDate);
+    div.append(divHeader, divParagraphDueDate);
     div.dataset.todoId = todo.Id;
     div.dataset.todoPriority = todo.priority;
     const divExtraInformation =
@@ -55,6 +60,20 @@ export class ScreenController {
     div.addEventListener("click", this.#expandTodo);
     return div;
     //TODO Add more elements to display other status for the todo
+  }
+
+  static #renderTodoOptions() {
+    const div = document.createElement("div");
+    div.classList.add("todo-options");
+    div.append(this.#addSvgIcon("edit"), this.#addSvgIcon("delete"));
+    return div;
+  }
+
+  static #addSvgIcon(iconText) {
+    const icon = document.createElement("span");
+    icon.classList.add("material-symbols-outlined");
+    icon.textContent = iconText;
+    return icon;
   }
   static renderAllProjects() {
     const projectElements = [];

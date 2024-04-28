@@ -33,7 +33,10 @@ export class Todo {
     if (this.duedate === "" || this.duedate === false) {
       return;
     }
-    const timeToDuedate = formatDistanceToNow(this.duedate);
+    const timeToDuedate = formatDistanceToNow(this.duedate, {
+      addSuffix: true,
+    });
+    console.log(timeToDuedate);
     return timeToDuedate;
   }
   set completed(flag) {

@@ -66,14 +66,45 @@ button#add-todo-button:active {
 
 .content {
   display: flex;
-  column-gap: 20px;
+  column-gap: 30px;
+  flex-wrap: wrap;
+}
+.project {
+  flex-basis: 15vw;
+  flex-grow: 0;
+  min-width: 30ch;
+}
+/* .delete-icon {
+  background-image: url("../assets/delete_icon.svg");
+  display: block;
+  width: 40px;
+  height: 40px;
+} */
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
+.todo-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 24px;
+}
+.todo-options {
+  opacity: 0;
+}
+.todo:hover .todo-options {
+  opacity: 1;
+}
+.todo:hover .todo-options span {
+  cursor: pointer;
+}
 .todo {
-  border: 2px solid rgb(75, 111, 186);
+  border-bottom: 2px solid rgb(71, 111, 186);
   border-radius: 8px;
-  padding: 10px 20px;
-  width: 20ch;
+  padding: 10px 10px;
+
   color: var(--background-color);
 }
 .todo p.duedate {
