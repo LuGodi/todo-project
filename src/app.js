@@ -91,6 +91,9 @@ class App {
     }
     console.log(`todo id ${todoId} not found`);
   }
+  updateTodo(todo) {
+    todo["property"] = propertyValue;
+  }
   moveTodo(todo, newProjectName) {
     const currentProject = todo.parentProject;
     currentProject.removeFromProject(todo);

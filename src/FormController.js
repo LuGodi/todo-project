@@ -33,31 +33,16 @@ export class FormController {
       });
     }
 
-    //not necessary anymore because formnovalidate was added
-    // this.addTodoForm.dialog.addEventListener("click", (event) => {
-    //   if (event.target.dataset.action === "close") {
-    //     this.addTodoForm.dialog.close();
-    //     return;
-    //   }
-    // });
-    // this.addTodoForm.formElement.addEventListener("submit", (event) => {
-    //   console.log(event.type);
-    //   console.log(event.target);
-    //   this.readForm(event.target);
-    //   console.log("clicked submit");
-    //   ScreenController.renderAllProjects();
-    //   event.target.reset();
-    //   return;
-    // });
     //now I need the events to delegate to the project field to avoid two event listeners calling the same function
     this.addTodoForm.projectFieldset.addEventListener("change", (event) => {
       if (event.target.tagName === "INPUT") {
         this.#checkNewProject();
       }
     });
-    this.addTodoForm.duedate.addEventListener("change", (event) =>
-      this.#checkValidDuedate()
-    );
+    this.addTodoForm.duedate.addEventListener("change", (event) => {
+      console.log(event.target);
+      this.#checkValidDuedate();
+    });
   }
   static #readForm(formElement) {
     const formData = new FormData(formElement);
@@ -107,7 +92,66 @@ export class FormController {
 
   static populateAddTodoForm(dataAttribute) {
     this.#populateExistingProjects();
-    this.#setMinValidDuedate();
+    this.#setMinValidDuedate(this.addTodoForm.duedate);
+  }
+
+  static populateEditTodoForm(todoId, targetTodoDiv) {
+    const targetTodo = app.findTodoById(+todoId);
+    const targetDiv = targetTodoDiv;
+    const form = document.createElement("form");
+
+    const formElements = [];
+    const divTitle = this.#createLabelInputPair(
+      "edit-title",
+      "title",
+      "Name",
+      "text",
+      targetTodo.title
+    );
+    formElements.push(divTitle);
+
+    const divDescription = this.#createLabelInputPair(
+      "edit-description",
+      "description",
+      "Description",
+      "textarea",
+      targetTodo.description
+    );
+    formElements.push(divDescription);
+
+    const divDueDate = this.#createLabelInputPair(
+      "edit-duedate",
+      "duedate",
+      "Set Duedate",
+      "date",
+      targetTodo.duedate
+    );
+
+    form.append(divTitle, divDescription, divDueDate);
+    targetDiv.replaceChildren(form);
+  }
+  static #createLabelInputPair(
+    idAttribute,
+    nameAttribute,
+    labelText,
+    inputType,
+    inputOldValue
+  ) {
+    const div = document.createElement("div");
+    const input = document.createElement("input");
+    const label = document.createElement("label");
+    input.id = idAttribute;
+    input.type = inputType;
+    input.value = inputOldValue;
+    input.setAttribute("name", nameAttribute);
+    label.setAttribute("for", idAttribute);
+    label.textContent = labelText;
+    if (inputType === "date") {
+      this.#setMinValidDuedate(input);
+    }
+
+    div.append(label, input);
+    return div;
   }
   static #populateExistingProjects() {
     const projectSelect = this.addTodoForm.addExistingProject.selectInput;
@@ -121,7 +165,7 @@ export class FormController {
     console.log(optionsToAdd);
     projectSelect.replaceChildren(...optionsToAdd);
   }
-  static #setMinValidDuedate() {
-    this.addTodoForm.duedate.setAttribute("min", format(Date(), "yyyy-MM-dd"));
+  static #setMinValidDuedate(duedateInput) {
+    duedateInput.setAttribute("min", format(Date(), "yyyy-MM-dd"));
   }
 }

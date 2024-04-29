@@ -75,11 +75,23 @@ export class ScreenController {
     console.log(this);
     if (event.target.dataset.iconAction !== undefined) {
       ScreenController[event.target.dataset.iconAction + "Todo"](
-        this.dataset.todoId
+        this.dataset.todoId,
+        event
       );
       return;
     }
-    ScreenController.#expandTodo(event);
+    if (!ScreenController.#checkIfInEditMode(this)) {
+      ScreenController.#expandTodo(event);
+    }
+  }
+
+  //Todo remove checkIfInEditMode and place add icon for expanding instead of the whole div
+  static #checkIfInEditMode(todoDiv) {
+    if (todoDiv.classList.contains("edit-todo")) {
+      console.log("todo div is in edition mode");
+      return true;
+    }
+    return false;
   }
 
   static #addTodoOptions() {
@@ -89,8 +101,11 @@ export class ScreenController {
     return div;
   }
 
-  static editTodo(todoIdentifierNum) {
-    console.log(`called editTodo on ${todoIdentifierNum}`);
+  static editTodo(todoIdentifierNum, event) {
+    const targetDiv = event.currentTarget;
+    targetDiv.classList.add("edit-todo");
+    FormController.populateEditTodoForm(+todoIdentifierNum, targetDiv);
+    console.log(event.currentTarget);
   }
   static deleteTodo(todoIdentifierNum) {
     console.log(`called deleteTodo on Todo id ${todoIdentifierNum}`);

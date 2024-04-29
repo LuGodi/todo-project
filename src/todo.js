@@ -52,4 +52,6 @@ export class Todo {
       this.duedate === false || this.duedate === "" ? "None" : this.duedate
     }, with priority ${this.priority} created at ${this.creationTime}`;
   }
+
+  todoEntries() {}
 }
