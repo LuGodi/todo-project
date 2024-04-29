@@ -18,6 +18,15 @@ export class ScreenController {
         this.#openDialog(event.target.dataset.dialog);
       }
     });
+    // this.contentDiv.addEventListener("click", (event) => {
+    //   console.log(event.target);
+    //   if (event.target.dataset.iconAction !== undefined) {
+    //     console.log(event.target.dataset.iconAction);
+    //     this[event.target.dataset.iconAction + "Todo"](
+    //       event.target.parentElement.parentElement.parentElement.dataset.todoId
+    //     );
+    //   }
+    // });
   }
   static #openDialog(dialogTarget) {
     //error was being throw because value of this inside event listener is the window object
@@ -42,7 +51,7 @@ export class ScreenController {
     const divHeader = document.createElement("div");
     divHeader.classList.add("todo-header");
     const divTaskName = document.createElement("span");
-    divHeader.append(divTaskName, this.#renderTodoOptions());
+    divHeader.append(divTaskName, this.#addTodoOptions());
     const divParagraphDueDate = document.createElement("p");
     divParagraphDueDate.classList.add("duedate");
     divTaskName.textContent = todo.title;
@@ -57,19 +66,39 @@ export class ScreenController {
     div.append(divExtraInformation);
     ScreenController.#cacheDomTodos.push(div);
     //TODO delegate the event listener to avoid adding a lot of listeners
-    div.addEventListener("click", this.#expandTodo);
+    div.addEventListener("click", this.#todoEventListeners);
     return div;
     //TODO Add more elements to display other status for the todo
   }
 
-  static #renderTodoOptions() {
+  static #todoEventListeners(event) {
+    console.log(this);
+    if (event.target.dataset.iconAction !== undefined) {
+      ScreenController[event.target.dataset.iconAction + "Todo"](
+        this.dataset.todoId
+      );
+      return;
+    }
+    ScreenController.#expandTodo(event);
+  }
+
+  static #addTodoOptions() {
     const div = document.createElement("div");
     div.classList.add("todo-options");
     div.append(this.#addSvgIcon("edit"), this.#addSvgIcon("delete"));
     return div;
   }
 
-  static #addSvgIcon(iconText, iconDataAttribute) {
+  static editTodo(todoIdentifierNum) {
+    console.log(`called editTodo on ${todoIdentifierNum}`);
+  }
+  static deleteTodo(todoIdentifierNum) {
+    console.log(`called deleteTodo on Todo id ${todoIdentifierNum}`);
+    app.findAndDeleteTodo(+todoIdentifierNum);
+    this.renderAllProjects();
+  }
+
+  static #addSvgIcon(iconText, todoId) {
     const icon = document.createElement("span");
     icon.classList.add("material-symbols-outlined");
     icon.textContent = iconText;
@@ -115,10 +144,9 @@ export class ScreenController {
     return divExpanded;
   }
 
-  static #expandTodo(todoDatasetId) {
+  static #expandTodo(event) {
     console.log("click");
-    console.log(this);
-    const targetExtraInfo = this.lastElementChild;
+    const targetExtraInfo = event.currentTarget.lastElementChild;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }
 }
