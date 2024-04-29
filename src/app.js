@@ -34,8 +34,15 @@ class App {
   completeTodo(todo) {
     todo.completed = true;
   }
-  deleteTodo(todo, project) {
+  #deleteTodo(todo, project) {
     project.removeFromProject(todo);
+  }
+  findAndDeleteTodo(todoId) {
+    const todo = this.findTodoById(todoId);
+    console.log(todo);
+    console.log(todo.parentProject);
+    const parentProject = todo.parentProject;
+    this.#deleteTodo(todo, parentProject);
   }
   changeTodoPriority(todo, priority) {
     if (priority > 3 || priority < 1) {
