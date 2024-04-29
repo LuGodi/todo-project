@@ -151,6 +151,7 @@ export class FormController {
     }
 
     div.append(label, input);
+    div.classList.add("label-input-container");
     return div;
   }
   static #populateExistingProjects() {
