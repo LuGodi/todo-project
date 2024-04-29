@@ -56,7 +56,7 @@ export class ScreenController {
     divParagraphDueDate.classList.add("duedate");
     divTaskName.textContent = todo.title;
     divParagraphDueDate.textContent =
-      todo.duedate === "" ? "No duedate" : todo.timeToDuedate;
+      todo.duedate === "" ? "---- ----" : todo.timeToDuedate;
 
     div.append(divHeader, divParagraphDueDate);
     div.dataset.todoId = todo.Id;
