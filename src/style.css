@@ -150,8 +150,10 @@ dialog {
   margin: auto;
   width: 40vh;
 }
-dialog button {
+dialog button,
+form button {
   padding: 15px;
+  background-color: var(--color-dark);
 }
 dialog::backdrop {
   background-color: #0000001a;
@@ -192,7 +194,8 @@ fieldset div.project-div {
   text-align: center;
 }
 
-dialog .submit-close-button-container {
+dialog .submit-close-button-container,
+form .submit-close-button-container {
   margin-top: 15px;
   display: flex;
   flex-direction: row;

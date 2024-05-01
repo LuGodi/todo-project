@@ -150,12 +150,24 @@ export class FormController {
     selectPriority.lastElementChild.setAttribute("min", 1);
     selectPriority.lastElementChild.setAttribute("max", 3);
     selectPriority.lastElementChild.setAttribute("value", targetTodo.priority);
+
+    const submitCloseBtnContainer = document.createElement("div");
+    submitCloseBtnContainer.classList.add("submit-close-button-container");
+    const submitBtn = document.createElement("button");
+    submitBtn.dataset.action = "submit";
+    submitBtn.textContent = "Edit";
+    const closeBtn = document.createElement("button");
+    closeBtn.dataset.action = "close";
+    closeBtn.textContent = "Cancel";
+    submitCloseBtnContainer.append(submitBtn, closeBtn);
+
     form.append(
       divTitle,
       divDescription,
       divDueDate,
       selectProject,
-      selectPriority
+      selectPriority,
+      submitCloseBtnContainer
     );
     targetDiv.replaceChildren(heading, form);
   }
