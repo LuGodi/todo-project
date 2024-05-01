@@ -27,8 +27,9 @@ export class FormController {
     for (let form of this.forms) {
       form.addEventListener("submit", (event) => {
         this.#readForm(event.target);
-
         event.target.reset();
+        //need to call check new project to prevent bug of a disabled radio being checked
+        this.#checkNewProject();
         return;
       });
     }
@@ -44,6 +45,7 @@ export class FormController {
       this.#checkValidDuedate();
     });
   }
+
   static #readForm(formElement, todo) {
     const formData = new FormData(formElement);
 
@@ -175,10 +177,14 @@ export class FormController {
       selectPriority,
       submitCloseBtnContainer
     );
-    form.addEventListener("submit", (event) => {
-      this.#readForm(event.currentTarget, targetTodo);
-      event.preventDefault();
-    });
+    form.addEventListener(
+      "submit",
+      (event) => {
+        this.#readForm(event.currentTarget, targetTodo);
+        event.preventDefault();
+      },
+      { once: true }
+    );
     targetDiv.replaceChildren(heading, form);
   }
   static #createLabelInputPair(
