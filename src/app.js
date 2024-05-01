@@ -44,18 +44,18 @@ class App {
     const parentProject = todo.parentProject;
     this.#deleteTodo(todo, parentProject);
   }
-  changeTodoPriority(todo, priority) {
-    if (priority > 3 || priority < 1) {
-      throw new Error("priority must be 1 2 or 3");
-      return;
-    }
-    const oldPriority = todo.priority;
-    todo.priority = priority;
-    console.log(
-      `Todo ${todo.title} priority changed from ${oldPriority} to ${todo.priority}`
-    );
-    return todo;
-  }
+  // changeTodoPriority(todo, priority) {
+  //   if (priority > 3 || priority < 1) {
+  //     throw new Error("priority must be 1 2 or 3");
+  //     return;
+  //   }
+  //   const oldPriority = todo.priority;
+  //   todo.priority = priority;
+  //   console.log(
+  //     `Todo ${todo.title} priority changed from ${oldPriority} to ${todo.priority}`
+  //   );
+  //   return todo;
+  // }
   addNewProject(projectName, description) {
     const newProject = new Project(projectName, description);
     this.projects.push(newProject);

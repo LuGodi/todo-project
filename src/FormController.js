@@ -51,6 +51,7 @@ export class FormController {
 
     if (formElement === this.addTodoForm.formElement) {
       console.log(formData.has("duedate"));
+      console.log(formData.get("duedate"));
       app.addNewTodo({
         title: formData.get("task-name"),
         description: formData.get("description"),
@@ -137,7 +138,9 @@ export class FormController {
       "duedate",
       "Set Duedate",
       "date",
-      targetTodo.duedate === "" ? "" : format(targetTodo.duedate, "yyyy-MM-dd")
+      targetTodo.duedate === false
+        ? ""
+        : format(targetTodo.duedate, "yyyy-MM-dd")
     );
     console.log(targetTodo.duedate);
     const selectProject = this.#createLabelInputPair(
