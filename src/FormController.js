@@ -48,6 +48,7 @@ export class FormController {
     const formData = new FormData(formElement);
     for (let data of formData) {
       console.log(data);
+      console.log(formElement.dataset);
     }
 
     if (formElement === this.addTodoForm.formElement) {
@@ -102,6 +103,7 @@ export class FormController {
     const targetDiv = targetTodoDiv;
     const form = document.createElement("form");
     form.classList.add("edit-todo-form");
+    form.dataset.action = "updateTodo";
     const heading = document.createElement("h3");
     heading.textContent = "Edit Todo Form";
 
@@ -129,9 +131,9 @@ export class FormController {
       "duedate",
       "Set Duedate",
       "date",
-      targetTodo.duedate
+      targetTodo.duedate === "" ? "" : format(targetTodo.duedate, "yyyy-MM-dd")
     );
-
+    console.log(targetTodo.duedate);
     const selectProject = this.#createLabelInputPair(
       "edit-project",
       "project",
@@ -169,6 +171,10 @@ export class FormController {
       selectPriority,
       submitCloseBtnContainer
     );
+    form.addEventListener("submit", (event) => {
+      this.#readForm(event.currentTarget);
+      event.preventDefault();
+    });
     targetDiv.replaceChildren(heading, form);
   }
   static #createLabelInputPair(
