@@ -27,7 +27,7 @@ export class FormController {
     for (let form of this.forms) {
       form.addEventListener("submit", (event) => {
         this.#readForm(event.target);
-        ScreenController.renderAllProjects();
+
         event.target.reset();
         return;
       });
@@ -44,12 +44,8 @@ export class FormController {
       this.#checkValidDuedate();
     });
   }
-  static #readForm(formElement) {
+  static #readForm(formElement, todo) {
     const formData = new FormData(formElement);
-    for (let data of formData) {
-      console.log(data);
-      console.log(formElement.dataset);
-    }
 
     if (formElement === this.addTodoForm.formElement) {
       console.log(formData.has("duedate"));
@@ -69,7 +65,15 @@ export class FormController {
       //TODO Add new project
     } else if (formElement === this.forms["add-project-form"]) {
       app.addNewProject(formData.get("project-name"));
+    } else if (formElement.dataset.action === "updateTodo") {
+      for (let [key, value] of formData) {
+        console.log(key, value);
+        // console.log(formElement.dataset);
+        app[formElement.dataset.action](todo, key, value);
+      }
     }
+    //I dont think this is supposed to be here, but I moved it from the forms listeners since any reading of the form will have to result in the rendering of the screen
+    ScreenController.renderAllProjects();
   }
   static #checkValidDuedate() {
     return isPast(this.addTodoForm.duedate);
@@ -136,7 +140,7 @@ export class FormController {
     console.log(targetTodo.duedate);
     const selectProject = this.#createLabelInputPair(
       "edit-project",
-      "project",
+      "moveProject",
       "Move to project",
       "select",
       targetTodo.parentProject
@@ -172,7 +176,7 @@ export class FormController {
       submitCloseBtnContainer
     );
     form.addEventListener("submit", (event) => {
-      this.#readForm(event.currentTarget);
+      this.#readForm(event.currentTarget, targetTodo);
       event.preventDefault();
     });
     targetDiv.replaceChildren(heading, form);
@@ -207,6 +211,8 @@ export class FormController {
     div.classList.add("label-input-container");
     return div;
   }
+
+  //Todo change from adding element option to use the add method of the htmlselectelement api
   static #populateExistingProjects(selectInput) {
     const projectSelect = selectInput;
     const optionsToAdd = [];
