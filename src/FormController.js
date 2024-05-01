@@ -91,7 +91,9 @@ export class FormController {
   }
 
   static populateAddTodoForm(dataAttribute) {
-    this.#populateExistingProjects();
+    this.#populateExistingProjects(
+      this.addTodoForm.addExistingProject.selectInput
+    );
     this.#setMinValidDuedate(this.addTodoForm.duedate);
   }
 
@@ -99,6 +101,9 @@ export class FormController {
     const targetTodo = app.findTodoById(+todoId);
     const targetDiv = targetTodoDiv;
     const form = document.createElement("form");
+    form.classList.add("edit-todo-form");
+    const heading = document.createElement("h3");
+    heading.textContent = "Edit Todo Form";
 
     const formElements = [];
     const divTitle = this.#createLabelInputPair(
@@ -127,8 +132,32 @@ export class FormController {
       targetTodo.duedate
     );
 
-    form.append(divTitle, divDescription, divDueDate);
-    targetDiv.replaceChildren(form);
+    const selectProject = this.#createLabelInputPair(
+      "edit-project",
+      "project",
+      "Move to project",
+      "select",
+      targetTodo.parentProject
+    );
+
+    const selectPriority = this.#createLabelInputPair(
+      "edit-priority",
+      "priority",
+      "Priority",
+      "number",
+      targetTodo.priority
+    );
+    selectPriority.lastElementChild.setAttribute("min", 1);
+    selectPriority.lastElementChild.setAttribute("max", 3);
+    selectPriority.lastElementChild.setAttribute("value", targetTodo.priority);
+    form.append(
+      divTitle,
+      divDescription,
+      divDueDate,
+      selectProject,
+      selectPriority
+    );
+    targetDiv.replaceChildren(heading, form);
   }
   static #createLabelInputPair(
     idAttribute,
@@ -138,10 +167,16 @@ export class FormController {
     inputOldValue
   ) {
     const div = document.createElement("div");
-    const input = document.createElement("input");
+    let input;
+    if (inputType === "select") {
+      input = document.createElement("select");
+      this.#populateExistingProjects(input);
+    } else {
+      input = document.createElement("input");
+      input.type = inputType;
+    }
     const label = document.createElement("label");
     input.id = idAttribute;
-    input.type = inputType;
     input.value = inputOldValue;
     input.setAttribute("name", nameAttribute);
     label.setAttribute("for", idAttribute);
@@ -154,8 +189,8 @@ export class FormController {
     div.classList.add("label-input-container");
     return div;
   }
-  static #populateExistingProjects() {
-    const projectSelect = this.addTodoForm.addExistingProject.selectInput;
+  static #populateExistingProjects(selectInput) {
+    const projectSelect = selectInput;
     const optionsToAdd = [];
     app.listProjects((project) => {
       const selectOption = document.createElement("option");
