@@ -84,6 +84,10 @@ button#add-todo-button:active {
   min-width: 30ch;
   gap: 10px;
 }
+.project-header {
+  display: flex;
+  justify-content: space-between;
+}
 /* .delete-icon {
   background-image: url("../assets/delete_icon.svg");
   display: block;
@@ -109,15 +113,19 @@ button#add-todo-button:active {
   border-bottom: 1px solid black;
   cursor: pointer;
 }
-.todo-options {
+.todo-options,
+.project-options {
   opacity: 0;
 }
-.todo:hover .todo-options {
+.todo:hover .todo-options,
+.project:hover .project-options {
   opacity: 1;
 }
-.todo:hover .todo-options span {
+.todo:hover .todo-options span,
+.project:hover .project-options span {
   cursor: pointer;
 }
+
 .todo {
   border-radius: 8px;
   padding: 10px 10px;
@@ -125,8 +133,11 @@ button#add-todo-button:active {
   background-color: var(--color-green-teal);
   margin-top: 10px;
 }
-.todo p.duedate {
+.todo p.duedate,
+.todo p.description,
+.todo p.creation-date {
   font-size: 12px;
+  cursor: pointer;
 }
 .todo:has(div > input[data-icon-action="toggleCompleted"]:checked) {
   .todo-title {
@@ -143,6 +154,7 @@ button#add-todo-button:active {
   margin-right: 4px;
   background-size: contain;
   content: "";
+  transform: translateY(1px);
 }
 .todo p.duedate::before {
   content: ""/"alarm";

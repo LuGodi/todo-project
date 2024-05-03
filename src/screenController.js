@@ -40,7 +40,11 @@ export class ScreenController {
   static #addProject(project) {
     const div = document.createElement("div");
     div.classList.add("project");
-    div.textContent = project.name;
+    const span = document.createElement("span");
+    span.classList.add("project-header");
+    span.textContent = project.name;
+    span.append(this.#addProjectOptions());
+    div.append(span);
     return div;
   }
 
@@ -113,6 +117,12 @@ export class ScreenController {
     const div = document.createElement("div");
     div.classList.add("todo-options");
     div.append(this.#addSvgIcon("edit"), this.#addSvgIcon("delete"));
+    return div;
+  }
+  static #addProjectOptions() {
+    const div = document.createElement("div");
+    div.classList.add("project-options");
+    div.append(this.#addSvgIcon("delete"));
     return div;
   }
 
