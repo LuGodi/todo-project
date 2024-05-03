@@ -31,8 +31,14 @@ class App {
       );
     }
   }
-  completeTodo(todo) {
+  #completeTodo(todo) {
     todo.completed = true;
+  }
+  findAndToggleCompletedTodo(todoid) {
+    const todo = this.findTodoById(+todoid);
+    console.log(todo);
+    todo.completed = todo.completed === true ? false : true;
+    console.log(todo);
   }
   #deleteTodo(todo, project) {
     project.removeFromProject(todo);

@@ -47,18 +47,25 @@ export class ScreenController {
   static #addTodo(todo) {
     const div = document.createElement("div");
     div.classList.add("todo");
-
+    const expandIcon = this.#addSvgIcon("expand_more");
+    expandIcon.dataset.iconAction = "expand";
+    const checkCompleted = document.createElement("div");
+    const checkCompletedInput = document.createElement("input");
+    checkCompletedInput.type = "checkbox";
+    checkCompletedInput.checked = todo.completed;
+    checkCompletedInput.dataset.iconAction = "toggleCompleted";
+    checkCompleted.append(checkCompletedInput);
     const divHeader = document.createElement("div");
     divHeader.classList.add("todo-header");
     const divTaskName = document.createElement("span");
-    divHeader.append(divTaskName, this.#addTodoOptions());
+    divHeader.append(expandIcon, divTaskName, this.#addTodoOptions());
     const divParagraphDueDate = document.createElement("p");
     divParagraphDueDate.classList.add("duedate");
     divTaskName.textContent = todo.title;
     divParagraphDueDate.textContent =
       todo.duedate === "" ? "---- ----" : todo.timeToDuedate;
 
-    div.append(divHeader, divParagraphDueDate);
+    div.append(checkCompleted, divHeader, divParagraphDueDate);
     div.dataset.todoId = todo.Id;
     div.dataset.todoPriority = todo.priority;
     const divExtraInformation =
@@ -75,17 +82,21 @@ export class ScreenController {
     console.log(this);
     if (event.target.dataset.iconAction !== undefined) {
       ScreenController[event.target.dataset.iconAction + "Todo"](
-        this.dataset.todoId,
-        event
+        event,
+        this.dataset.todoId
       );
+      // else if (event.target.)
       return;
     }
-    if (!ScreenController.#checkIfInEditMode(this)) {
-      ScreenController.#expandTodo(event);
-    }
+    // if (!ScreenController.#checkIfInEditMode(this)) {
+    //   ScreenController.expandTodo(event);
+    // }
   }
 
   //Todo remove checkIfInEditMode and place add icon for expanding instead of the whole div
+  static toggleCompletedTodo(event, todoId) {
+    app.findAndToggleCompletedTodo(todoId);
+  }
   static #checkIfInEditMode(todoDiv) {
     if (todoDiv.classList.contains("edit-todo")) {
       console.log("todo div is in edition mode");
@@ -101,13 +112,13 @@ export class ScreenController {
     return div;
   }
 
-  static editTodo(todoIdentifierNum, event) {
+  static editTodo(event, todoIdentifierNum) {
     const targetDiv = event.currentTarget;
     targetDiv.classList.add("edit-todo");
     FormController.populateEditTodoForm(+todoIdentifierNum, targetDiv);
     console.log(event.currentTarget);
   }
-  static deleteTodo(todoIdentifierNum) {
+  static deleteTodo(event, todoIdentifierNum) {
     console.log(`called deleteTodo on Todo id ${todoIdentifierNum}`);
     app.findAndDeleteTodo(+todoIdentifierNum);
     this.renderAllProjects();
@@ -159,8 +170,9 @@ export class ScreenController {
     return divExpanded;
   }
 
-  static #expandTodo(event) {
+  static expandTodo(event) {
     console.log("click");
+    console.log(event.currentTarget);
     const targetExtraInfo = event.currentTarget.lastElementChild;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }

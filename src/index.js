@@ -8,19 +8,19 @@ const mock = {
   task1: {
     title: "dishes",
     description: "do the dishes",
-    duedate: "",
+
     priority: 3,
   },
   task2: {
     title: "study",
     description: "math today",
-    duedate: "",
+
     priority: 1,
   },
   task3: {
     title: "walk dog",
     description: "boo",
-    duedate: "",
+
     priority: 2,
     projectName: "Home",
   },
@@ -28,6 +28,7 @@ const mock = {
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
+app.findAndToggleCompletedTodo(1);
 console.log("list projects:");
 app.listProjects((project) => console.log(project.toString()));
 console.log(app.projects);
