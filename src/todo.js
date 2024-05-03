@@ -9,7 +9,7 @@ export class Todo {
   constructor(
     title,
     description = "",
-    duedate = false,
+    duedate = "",
     priority = 1,
     parentProject
   ) {

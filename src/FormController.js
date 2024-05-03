@@ -138,9 +138,7 @@ export class FormController {
       "duedate",
       "Set Duedate",
       "date",
-      targetTodo.duedate === false
-        ? ""
-        : format(targetTodo.duedate, "yyyy-MM-dd")
+      targetTodo.duedate === "" ? "" : format(targetTodo.duedate, "yyyy-MM-dd")
     );
     console.log(targetTodo.duedate);
     const selectProject = this.#createLabelInputPair(
