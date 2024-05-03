@@ -57,11 +57,12 @@ export class ScreenController {
     checkCompleted.append(checkCompletedInput);
     const divHeader = document.createElement("div");
     divHeader.classList.add("todo-header");
-    const divTaskName = document.createElement("span");
-    divHeader.append(expandIcon, divTaskName, this.#addTodoOptions());
+    const spanTaskName = document.createElement("span");
+    spanTaskName.classList.add("todo-title");
+    divHeader.append(expandIcon, spanTaskName, this.#addTodoOptions());
     const divParagraphDueDate = document.createElement("p");
     divParagraphDueDate.classList.add("duedate");
-    divTaskName.textContent = todo.title;
+    spanTaskName.textContent = todo.title;
     divParagraphDueDate.textContent =
       todo.duedate === "" ? "---- ----" : todo.timeToDuedate;
 
@@ -73,17 +74,20 @@ export class ScreenController {
     div.append(divExtraInformation);
     ScreenController.#cacheDomTodos.push(div);
     //TODO delegate the event listener to avoid adding a lot of listeners
-    div.addEventListener("click", this.#todoEventListeners);
+    div.addEventListener("click", (event) => {
+      this.#todoEventListeners(event, divExtraInformation);
+    });
     return div;
     //TODO Add more elements to display other status for the todo
   }
 
-  static #todoEventListeners(event) {
+  static #todoEventListeners(event, divExtraInformation) {
     console.log(this);
     if (event.target.dataset.iconAction !== undefined) {
       ScreenController[event.target.dataset.iconAction + "Todo"](
         event,
-        this.dataset.todoId
+        event.currentTarget.dataset.todoId,
+        divExtraInformation
       );
       // else if (event.target.)
       return;
@@ -162,7 +166,9 @@ export class ScreenController {
     const divExpanded = document.createElement("div");
     divExpanded.classList.add("hiddenDetails");
     const paragraphDescription = document.createElement("p");
+    paragraphDescription.classList.add("description");
     const paragraphCreationDate = document.createElement("p");
+    paragraphCreationDate.classList.add("creation-date");
     paragraphDescription.textContent = todo.description;
     paragraphCreationDate.textContent = todo.creationTime;
     divExpanded.append(paragraphDescription, paragraphCreationDate);
@@ -170,10 +176,10 @@ export class ScreenController {
     return divExpanded;
   }
 
-  static expandTodo(event) {
+  static expandTodo(event, todoId, divExtraInformation) {
     console.log("click");
     console.log(event.currentTarget);
-    const targetExtraInfo = event.currentTarget.lastElementChild;
+    const targetExtraInfo = divExtraInformation;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }
 }

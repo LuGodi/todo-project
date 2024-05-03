@@ -128,15 +128,52 @@ button#add-todo-button:active {
 .todo p.duedate {
   font-size: 12px;
 }
+.todo:has(div > input[data-icon-action="toggleCompleted"]:checked) {
+  .todo-title {
+    text-decoration: line-through;
+  }
+}
 
-.todo p.duedate::before {
-  content: "";
-  background-image: url(../assets/alarm_icon.svg);
+.todo p.duedate::before,
+.todo p.description::before,
+.todo p.creation-date::before {
   display: inline-block;
   height: 10px;
   width: 10px;
   margin-right: 4px;
   background-size: contain;
+  content: "";
+}
+.todo p.duedate::before {
+  content: ""/"alarm";
+  background-image: url(../assets/alarm_icon.svg);
+}
+.todo p.duedate:hover::after,
+.todo p.description:hover::after,
+.todo p.creation-date:hover::after {
+  color: var(--color-brown);
+  position: absolute;
+  font-weight: bolder;
+  transform: translateX(50%);
+  font-size: 12px;
+  /* position: absolute; */
+}
+.todo p.description:hover::after {
+  content: "description";
+}
+.todo p.duedate:hover::after {
+  content: "duedate";
+}
+.todo p.creation-date:hover::after {
+  content: "created in";
+}
+.todo p.description::before {
+  content: "";
+  background-image: url(../assets/description_icon.svg);
+}
+.todo p.creation-date::before {
+  content: "";
+  background-image: url(../assets/created_icon.svg);
 }
 .todo > .hiddenDetails {
   display: none;
