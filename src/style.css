@@ -5,9 +5,12 @@
 }
 :root {
   --background-color: var(--color-dark);
-  --button-color: var(--color-blue);
+  --header-child-bg-color: var(--color-green-teal);
+  --button-color: var(--color-green-teal);
   --font-color: var(--color-yellowish);
-  --todo-color: var(var(--color-green-teal));
+  --todo-color: var(--color-green-teal);
+  --today-date-size: 100px;
+  --date-bg-color: var(var(--color-green-teal));
 
   --medium-priority: #ffff66;
   --high-priority: #d81616;
@@ -31,29 +34,75 @@ body {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
+  gap: 5px;
   min-height: 10vh;
-  column-gap: 30px;
+  column-gap: 10px;
 }
-.header-right {
+.header .status {
+  border: 1px solid var(--header-child-bg-color);
+  border-radius: 8px;
+  margin-top: 10px;
+}
+.status > * {
+  transform: translateY(-140%);
+  position: relative;
+  display: inline-block;
+  background-color: var(--background-color);
+  padding: 0 30px;
+}
+.header #add-todo-button {
+  width: 70px;
+  background-color: var(--button-color);
+  border-radius: 0;
+  border: 0px;
+}
+
+.header #add-project-button {
+  border: 0px;
+}
+.header > *:not(.header-center) {
+  background-color: var(--header-child-bg-color);
+}
+.header-center {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  max-width: 500px;
-  flex-grow: 1;
+
+  flex-grow: 10;
   gap: 10px;
-  margin: 2px 0;
 }
-.header-right > * {
+.header-center > * {
   flex-grow: 1;
   height: 50%;
   flex-basis: 49%;
   padding: 15px;
 }
+.header-end {
+  flex-grow: 1;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  max-width: max(10vh, 320px);
+}
+.header-end #date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+.header-end #date #day-of-the-month {
+  flex-grow: 1;
+  flex-basis: 0;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  font-size: var(--today-date-size);
+}
 button {
-  background-color: transparent;
-  border: 2px solid var(--color-blue);
-  border-radius: 3px;
+  background-color: var(--color-green-teal);
+  /* border: 2px solid var(--color-blue); */
+
   color: var(--font-color);
 }
 button:active {
@@ -77,6 +126,7 @@ button#add-todo-button:active {
   display: flex;
   column-gap: 30px;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .project {
   flex-basis: 15vw;

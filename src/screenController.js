@@ -1,8 +1,16 @@
 import { app } from "./app";
 import { FormController } from "./FormController";
+import { format } from "date-fns";
 import deleteIcon from "../assets/delete_icon.svg";
 export class ScreenController {
   static contentDiv = document.querySelector(".content");
+  static dateDiv = {
+    container: document.querySelector("#date"),
+    weekDay: document.querySelector("#day-of-the-week"),
+    monthDay: document.querySelector("#day-of-the-month"),
+    month: document.querySelector("#month"),
+  };
+
   static buttons = {
     buttonContainer: document.querySelector(".header"),
     addTodo: document.querySelector("#add-todo-button"),
@@ -18,6 +26,11 @@ export class ScreenController {
         this.#openDialog(event.target.dataset.dialog);
       }
     });
+
+    this.contentDiv.addEventListener("click", (event) => {
+      if (event.target.dataset.iconAction === "delete") {
+      }
+    });
     // this.contentDiv.addEventListener("click", (event) => {
     //   console.log(event.target);
     //   if (event.target.dataset.iconAction !== undefined) {
@@ -27,6 +40,12 @@ export class ScreenController {
     //     );
     //   }
     // });
+  }
+  static date() {
+    const today = new Date();
+    this.dateDiv.weekDay.textContent = format(today, "EEEE");
+    this.dateDiv.month.textContent = format(today, "MMMM");
+    this.dateDiv.monthDay.textContent = format(today, "d");
   }
   static #openDialog(dialogTarget) {
     //error was being throw because value of this inside event listener is the window object
@@ -45,7 +64,13 @@ export class ScreenController {
     span.textContent = project.name;
     span.append(this.#addProjectOptions());
     div.append(span);
+    div.addEventListener("click", this.#projectEventListeners);
     return div;
+  }
+
+  static #projectEventListeners(event) {
+    if (event.target.dataset.IconAction !== undefined) {
+    }
   }
 
   static #addTodo(todo) {
@@ -122,7 +147,7 @@ export class ScreenController {
   static #addProjectOptions() {
     const div = document.createElement("div");
     div.classList.add("project-options");
-    div.append(this.#addSvgIcon("delete"));
+    div.append(this.#addSvgIcon("delete", "delete-project"));
     return div;
   }
 
@@ -138,11 +163,11 @@ export class ScreenController {
     this.renderAllProjects();
   }
 
-  static #addSvgIcon(iconText, todoId) {
+  static #addSvgIcon(iconText, iconAction, todoId) {
     const icon = document.createElement("span");
     icon.classList.add("material-symbols-outlined");
     icon.textContent = iconText;
-    icon.dataset.iconAction = iconText;
+    icon.dataset.iconAction = iconAction ?? iconText;
     return icon;
   }
   static renderAllProjects() {

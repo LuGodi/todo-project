@@ -38,4 +38,5 @@ console.log(app.findTodoById(0));
 ScreenController.renderAllProjects();
 ScreenController.initEventListeners();
 FormController.formEventListeners();
+ScreenController.date();
 console.log(FormController.forms);

@@ -12,14 +12,21 @@
     <div class="main">
       <div class="header">
         <button id="add-todo-button" data-dialog="addTodoForm">Add todo</button>
-        <div class="header-right">
+        <div class="header-center">
           <button id="add-project-button" data-dialog="addProjectForm">
             Add project
           </button>
-          <button id="remove-project-button">Remove Project</button>
+          <div class="status">
+            <h4>Status</h4>
+          </div>
+          <!-- <button id="remove-project-button">Remove Project</button> -->
         </div>
-        <div class="header-right">
-          <span>Todo counter</span>
+        <div class="header-end">
+          <div id="date">
+            <span id="day-of-the-week"></span>
+            <span id="day-of-the-month"></span>
+            <span id="month"></span>
+          </div>
         </div>
       </div>
       <div class="content">this is the div where the projects go</div>
