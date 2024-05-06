@@ -22,10 +22,19 @@ export class FormController {
     // submitBtn: document.querySelector("#submit-button"),
     // closeBtn: document.querySelector("#close-dialog-button"),
   };
-
+  static init() {
+    this.formEventListeners();
+  }
   static formEventListeners() {
     for (let form of this.forms) {
+      // form.addEventListener("click", (event)=>event.target.dataset.action)
       form.addEventListener("submit", (event) => {
+        console.log(event.submitter);
+        if (event.submitter.dataset.action === "close") {
+          return;
+        }
+        console.log("read form");
+        console.log(event.target);
         this.#readForm(event.target);
         event.target.reset();
         //need to call check new project to prevent bug of a disabled radio being checked
@@ -186,6 +195,7 @@ export class FormController {
       },
       { once: true }
     );
+    // form.addEventListener("")
     targetDiv.replaceChildren(heading, form);
   }
   static #createLabelInputPair(

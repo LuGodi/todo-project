@@ -35,8 +35,5 @@ console.log(app.projects);
 console.log("testing the list todos");
 console.log(app.findTodoById(0));
 
-ScreenController.renderAllProjects();
-ScreenController.initEventListeners();
-FormController.formEventListeners();
-ScreenController.date();
+app.init();
 console.log(FormController.forms);

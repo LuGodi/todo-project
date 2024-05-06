@@ -3,6 +3,7 @@
 export class Project {
   todoList = [];
   #creationDate = new Date();
+  arrayIndex = null;
   constructor(name, description = "") {
     this.name = name;
     this.description = description;
@@ -68,4 +69,4 @@ export class Project {
     return todoListStr;
   }
 }
-export const defaultProject = new Project("Default");
+// export const defaultProject = new Project("Default");

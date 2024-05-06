@@ -2,7 +2,7 @@
 import { formatRelative, formatDistanceToNow } from "date-fns";
 export class Todo {
   #creationDate = new Date();
-  completed = false;
+  #completed = false;
 
   static todoIdControl = 0;
 
@@ -54,13 +54,13 @@ export class Todo {
     console.log(timeToDuedate);
     return timeToDuedate;
   }
-  // set completed(flag) {
-  //   if (flag === true) console.log(`task ${this.title} completed`);
-  //   this.#completed = flag;
-  // }
-  // get completed() {
-  //   return this.#completed;
-  // }
+  set completed(flag) {
+    if (flag === true) console.log(`task ${this.title} completed`);
+    this.#completed = flag;
+  }
+  get completed() {
+    return this.#completed;
+  }
 
   toString() {
     return `A todo titled - ${this.title} -, id ${this.Id}, duedate set to ${

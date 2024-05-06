@@ -18,7 +18,11 @@ export class ScreenController {
     removeProject: document.querySelector("#remove-project-button"),
   };
   static #cacheDomTodos = [];
-
+  static init() {
+    this.renderAllProjects();
+    this.date();
+    this.initEventListeners();
+  }
   static initEventListeners() {
     this.buttons.buttonContainer.addEventListener("click", (event) => {
       if (event.target.tagName === "BUTTON") {
@@ -59,6 +63,8 @@ export class ScreenController {
   static #addProject(project) {
     const div = document.createElement("div");
     div.classList.add("project");
+    console.log(project);
+    div.dataset.projectIndex = project.arrayIndex;
     const span = document.createElement("span");
     span.classList.add("project-header");
     span.textContent = project.name;
@@ -69,7 +75,13 @@ export class ScreenController {
   }
 
   static #projectEventListeners(event) {
-    if (event.target.dataset.IconAction !== undefined) {
+    console.log(this);
+    console.log(event.target);
+    console.log(event.target.dataset.iconAction === "delete-project");
+    if (event.target.dataset.iconAction === "delete-project") {
+      console.log("delete project");
+      app.deleteProject(event.target.dataset.projectIndex);
+      ScreenController.renderAllProjects();
     }
   }
 

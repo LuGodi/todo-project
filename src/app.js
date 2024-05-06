@@ -1,8 +1,19 @@
-import { defaultProject } from "./project";
+// import { defaultProject } from "./project";
 import { Todo } from "./todo";
 import { Project } from "./project";
+import { FormController } from "./FormController";
+import { ScreenController } from "./screenController";
 class App {
-  projects = [defaultProject];
+  projects = [];
+
+  init() {
+    //make default project
+    console.log("init");
+    const defaultProject = new Project("Default");
+    this.projects.push(defaultProject);
+    ScreenController.init();
+    FormController.init();
+  }
   addNewTodo({
     title,
     description,
@@ -50,6 +61,11 @@ class App {
     const parentProject = todo.parentProject;
     this.#deleteTodo(todo, parentProject);
   }
+
+  deleteProject(projectArrayPosition) {
+    this.projects.splice(projectArrayPosition, 1);
+    console.log(this.projects);
+  }
   // changeTodoPriority(todo, priority) {
   //   if (priority > 3 || priority < 1) {
   //     throw new Error("priority must be 1 2 or 3");
@@ -64,7 +80,7 @@ class App {
   // }
   addNewProject(projectName, description) {
     const newProject = new Project(projectName, description);
-    this.projects.push(newProject);
+    newProject.arrayIndex = this.projects.push(newProject) - 1;
     return newProject;
     // return newProject;
   }
