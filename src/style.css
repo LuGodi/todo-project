@@ -5,12 +5,13 @@
 }
 :root {
   --background-color: var(--color-dark);
-  --header-child-bg-color: var(--color-green-teal);
-  --button-color: var(--color-green-teal);
+  --header-child-bg-color: var(--color-blue);
+  --button-color: var(--color-blue);
   --font-color: var(--color-yellowish);
   --todo-color: var(--color-green-teal);
   --today-date-size: 100px;
   --date-bg-color: var(var(--color-green-teal));
+  --checked-todo-color: aquamarine;
 
   --medium-priority: #ffff66;
   --high-priority: #d81616;
@@ -36,7 +37,7 @@ body {
   justify-content: space-between;
   gap: 5px;
   min-height: 10vh;
-  column-gap: 30px;
+  column-gap: 5px;
 }
 .header .status {
   border: 1px solid var(--header-child-bg-color);
@@ -102,7 +103,7 @@ body {
   font-size: var(--today-date-size);
 }
 button {
-  background-color: var(--color-green-teal);
+  background-color: var(--button-color);
   /* border: 2px solid var(--color-blue); */
 
   color: var(--font-color);
@@ -152,6 +153,7 @@ button#add-todo-button:active {
 }
 
 .todo-header {
+  grid-area: header;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -162,7 +164,7 @@ button#add-todo-button:active {
   flex-basis: 100%;
   flex-shrink: 0;
   text-align: right;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
   cursor: pointer;
 }
 .todo-options,
@@ -179,15 +181,55 @@ button#add-todo-button:active {
 }
 
 .todo {
+  /* display: grid;
+  grid-template-areas:
+    "checkmark header"
+    "checkmark content"; */
+  grid-template-columns: 20px;
   border-radius: 8px;
   padding: 10px 10px;
   color: var(--background-color);
   background-color: var(--color-green-teal);
   margin-top: 10px;
 }
+.todo .expanded-information {
+  grid-area: content;
+  align-self: end;
+}
+
+.todo span.todo-title {
+  margin-right: auto;
+  margin-left: 10px;
+}
+.todo div input[data-icon-action="toggleCompleted"] {
+  border-radius: 50px;
+  appearance: none;
+  border: 1px solid var(--background-color);
+  width: 30px;
+  height: 10px;
+}
+.todo:has(input:checked) {
+  background-color: var(--checked-todo-color);
+}
+.todo-header
+  div:has(input[data-icon-action="toggleCompleted"]:checked)::before {
+  content: "";
+  display: inline-block;
+  width: 30px;
+  height: 8px;
+  border-radius: 50px;
+  background-color: var(--color-blue);
+  position: absolute;
+  transform: translateY(160%);
+  pointer-events: none;
+}
+div:has(input[data-icon-action="toggleCompleted"])::before {
+  display: none;
+}
 .todo p.duedate,
 .todo p.description,
 .todo p.creation-date {
+  grid-area: content;
   font-size: 12px;
   cursor: pointer;
 }

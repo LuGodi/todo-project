@@ -100,14 +100,19 @@ export class ScreenController {
     divHeader.classList.add("todo-header");
     const spanTaskName = document.createElement("span");
     spanTaskName.classList.add("todo-title");
-    divHeader.append(expandIcon, spanTaskName, this.#addTodoOptions());
+    divHeader.append(
+      expandIcon,
+      checkCompleted,
+      spanTaskName,
+      this.#addTodoOptions()
+    );
     const divParagraphDueDate = document.createElement("p");
     divParagraphDueDate.classList.add("duedate");
     spanTaskName.textContent = todo.title;
     divParagraphDueDate.textContent =
       todo.duedate === "" ? "---- ----" : todo.timeToDuedate;
 
-    div.append(checkCompleted, divHeader, divParagraphDueDate);
+    div.append(divHeader, divParagraphDueDate);
     div.dataset.todoId = todo.Id;
     div.dataset.todoPriority = todo.priority;
     const divExtraInformation =
@@ -212,6 +217,7 @@ export class ScreenController {
   static #createExpandedTodoInformation(todo) {
     const divExpanded = document.createElement("div");
     divExpanded.classList.add("hiddenDetails");
+    divExpanded.classList.add("expanded-information");
     const paragraphDescription = document.createElement("p");
     paragraphDescription.classList.add("description");
     const paragraphCreationDate = document.createElement("p");
