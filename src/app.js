@@ -9,8 +9,7 @@ class App {
   init() {
     //make default project
     console.log("init");
-    const defaultProject = new Project("Default");
-    this.projects.push(defaultProject);
+    const defaultProject = this.addNewProject("Default");
     ScreenController.init();
     FormController.init();
   }
@@ -22,6 +21,7 @@ class App {
     projectName = "Default",
   }) {
     //leverage destructuring assignment
+    projectName = projectName ?? "Default";
     const project = this.findProject(projectName);
     //Need to figure out better how I want the client to be able to input the project
     //will default always be the choice? Should I warn them when I create a new project?

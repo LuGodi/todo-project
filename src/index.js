@@ -25,6 +25,7 @@ const mock = {
     projectName: "Home",
   },
 };
+app.init();
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
@@ -35,5 +36,4 @@ console.log(app.projects);
 console.log("testing the list todos");
 console.log(app.findTodoById(0));
 
-app.init();
 console.log(FormController.forms);
