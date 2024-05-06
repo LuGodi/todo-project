@@ -8,3 +8,5 @@ Bug:Two default projects fixed
 
 Refactoring: Better event listeners for forms and edition
 On edition this prob can be done through stop propagation
+
+refactoring: formdata handling the lack of projects

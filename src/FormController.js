@@ -24,7 +24,7 @@ export class FormController {
   };
   static init() {
     this.formEventListeners();
-    this.#checkValidDuedate();
+    this.#checkNewProject();
   }
   static formEventListeners() {
     for (let form of this.forms) {
