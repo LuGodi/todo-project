@@ -66,7 +66,7 @@ export class FormController {
         description: formData.get("description"),
         duedate:
           formData.get("duedate") === ""
-            ? false
+            ? ""
             : new Date(formData.get("duedate")),
         priority: formData.get("priority"),
         projectName:
