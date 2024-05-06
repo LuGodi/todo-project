@@ -22,13 +22,13 @@ const mock = {
     description: "boo",
 
     priority: 2,
-    projectName: "Home",
+    project: { type: "name", projectName: "Home" },
   },
 };
 app.init();
 app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
-app.addNewTodo(mock.task3);
+// app.addNewTodo(mock.task3);
 app.findAndToggleCompletedTodo(1);
 console.log("list projects:");
 app.listProjects((project) => console.log(project.toString()));

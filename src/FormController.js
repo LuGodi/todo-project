@@ -24,6 +24,7 @@ export class FormController {
   };
   static init() {
     this.formEventListeners();
+    this.#checkValidDuedate();
   }
   static formEventListeners() {
     for (let form of this.forms) {
@@ -61,6 +62,10 @@ export class FormController {
     if (formElement === this.addTodoForm.formElement) {
       console.log(formData.has("duedate"));
       console.log(formData.get("duedate"));
+      console.log(
+        formData.get("parent-project"),
+        formData.get("new-project-name")
+      );
       app.addNewTodo({
         title: formData.get("task-name"),
         description: formData.get("description"),
@@ -69,10 +74,12 @@ export class FormController {
             ? ""
             : new Date(formData.get("duedate")),
         priority: formData.get("priority"),
-        projectName:
+        //parent project passes the index of the project
+
+        project:
           formData.get("project-selection") === "existing"
-            ? formData.get("parent-project")
-            : formData.get("new-project-name"),
+            ? { type: "index", projectIndex: formData.get("parent-project") }
+            : { type: "name", projectName: formData.get("new-project-name") },
       });
       //TODO Add new project
     } else if (formElement === this.forms["add-project-form"]) {
@@ -233,9 +240,9 @@ export class FormController {
   static #populateExistingProjects(selectInput) {
     const projectSelect = selectInput;
     const optionsToAdd = [];
-    app.listProjects((project) => {
+    app.listProjects((project, projectIndex) => {
       const selectOption = document.createElement("option");
-      selectOption.value = project.name;
+      selectOption.value = projectIndex;
       selectOption.textContent = project.name;
       optionsToAdd.push(selectOption);
     });

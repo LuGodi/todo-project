@@ -18,11 +18,17 @@ class App {
     description,
     duedate,
     priority,
-    projectName = "Default",
+    project = {
+      type: "index",
+      projectName: "Default",
+      projectIndex: 0,
+    },
   }) {
+    console.log(project);
     //leverage destructuring assignment
-    projectName = projectName ?? "Default";
-    const project = this.findProject(projectName);
+    // if (project.type==="name"){
+    // projectName = projectName ?? "Default";
+    // const project = this.findProject(projectName);
     //Need to figure out better how I want the client to be able to input the project
     //will default always be the choice? Should I warn them when I create a new project?
     //atm this functions is making three things, two reasons of change:
@@ -30,18 +36,30 @@ class App {
     //its looking if a given project exists
     //and if not its creating one
     //TODO
-    if (project === false) {
-      const newProject = this.addNewProject(projectName);
+    if (project.type === "name") {
+      const newProject = this.addNewProject(project.projectName);
       return newProject.addToProject(
         new Todo(title, description, duedate, priority, newProject)
       );
     } else {
-      const [projectIndex, projectObj] = project;
+      console.log(this.projects.length);
+      if (this.projects.length === 0) {
+        (project = {
+          type: "index",
+          projectName: "Default",
+          projectIndex: 0,
+        }),
+          this.addNewProject(project.projectName);
+      }
+
+      const projectObj = this.projects[project.projectIndex];
+
       return projectObj.addToProject(
         new Todo(title, description, duedate, priority, projectObj)
       );
     }
   }
+
   #completeTodo(todo) {
     todo.completed = true;
   }
@@ -80,7 +98,8 @@ class App {
   // }
   addNewProject(projectName, description) {
     const newProject = new Project(projectName, description);
-    newProject.arrayIndex = this.projects.push(newProject) - 1;
+    this.projects.push(newProject);
+    // newProject.arrayIndex = this.projects.push(newProject) - 1;
     return newProject;
     // return newProject;
   }
@@ -133,8 +152,9 @@ class App {
   }
   //TODO i want to add a function to be applied to each project
   listProjects(func, func2) {
-    for (let project of this.projects) {
-      func(project);
+    for (let [projectIndex, project] of this.projects.entries()) {
+      console.log(projectIndex, project);
+      func(project, projectIndex);
       // console.log(project.toString());
     }
   }

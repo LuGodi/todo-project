@@ -60,11 +60,11 @@ export class ScreenController {
   static #emptyCacheDomTodos() {
     this.#cacheDomTodos.splice(0, this.#cacheDomTodos.length);
   }
-  static #addProject(project) {
+  static #addProject(project, projectIndex) {
     const div = document.createElement("div");
     div.classList.add("project");
     console.log(project);
-    div.dataset.projectIndex = project.arrayIndex;
+    div.dataset.projectIndex = projectIndex;
     const span = document.createElement("span");
     span.classList.add("project-header");
     span.textContent = project.name;
@@ -189,8 +189,9 @@ export class ScreenController {
   }
   static renderAllProjects() {
     const projectElements = [];
-    app.listProjects((project) => {
-      const projectDiv = ScreenController.#addProject(project);
+    app.listProjects((project, projectIndex) => {
+      console.log(project);
+      const projectDiv = ScreenController.#addProject(project, projectIndex);
       project.listTodos((todo) => {
         const todoDiv = ScreenController.#addTodo(todo);
         projectDiv.appendChild(todoDiv);
