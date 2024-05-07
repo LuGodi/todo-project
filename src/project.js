@@ -1,9 +1,10 @@
 //maybe composition to make them share a property pointing to the same place
 //like a relational table
+
 export class Project {
   todoList = [];
-  #creationDate = new Date();
-  arrayIndex = null;
+  // #creationDate = new Date();
+
   constructor(name, description = "") {
     this.name = name;
     this.description = description;
@@ -67,6 +68,29 @@ export class Project {
       }
     }
     return todoListStr;
+  }
+
+  static loadProject(projectJSONString) {
+    const parsedProject = JSON.parse(projectJSONString);
+
+    const loadProject = new Project(
+      parsedProject.name,
+      parsedProject.description
+    );
+    console.log(loadProject);
+    return loadProject;
+  }
+  saveProject() {
+    const data = JSON.stringify(this);
+    console.log(data);
+    return data;
+  }
+
+  toJSON(key) {
+    if (key === "parentProject") {
+      return undefined;
+    }
+    return this;
   }
 }
 // export const defaultProject = new Project("Default");

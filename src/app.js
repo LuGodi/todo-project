@@ -12,6 +12,53 @@ class App {
     const defaultProject = this.addNewProject("Default");
     ScreenController.init();
     FormController.init();
+    this.saveData();
+  }
+  loadData() {
+    //Check if theres data to load
+    if (Storage.length === 0) {
+      console.log("no data to load");
+      return;
+    }
+    //load it
+  }
+
+  saveData() {
+    const projectsStorage = [];
+    //save changes to local storage
+    //What is of our interest?
+    //Todos and projects properties, methods cant be saved.
+    //methods inside the class are non enumerable by default
+    console.log("SAVE DATALDLSLDLFLFLSSDL");
+    this.listProjects((project) => {
+      console.log(
+        JSON.stringify(project, (key, value) => {
+          if (key === "parentProject") {
+            return;
+          } else return value;
+        })
+      );
+    });
+    // this.listProjects((project) => {
+    //   console.log(`SAVE DATA HERE
+    //   -------
+    //   -----`);
+
+    //   const data = JSON.stringify(project, function (key, value) {
+    //     if (key === "todoList") {
+    //       console.log(JSON.stringify(value[0]));
+    //       return value[0];
+    //     }
+
+    //     return value;
+    //   });
+
+    //   console.log(data);
+    //   // const todoStorage = [];
+    //   // project.listTodos(todo=>todoStorage.push(todo))
+
+    //   projectsStorage.push(project);
+    // });
   }
   addNewTodo({
     title,

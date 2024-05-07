@@ -1,5 +1,6 @@
 import { Todo } from "./todo";
 import { app } from "./app";
+import { Project } from "./project";
 import { FormController } from "./FormController";
 import { ScreenController } from "./screenController";
 import "./style.css";
@@ -27,7 +28,7 @@ const mock = {
 };
 
 app.init();
-app.addNewTodo(mock.task1);
+const myTodo = app.addNewTodo(mock.task1);
 app.addNewTodo(mock.task2);
 app.addNewTodo(mock.task3);
 app.findAndToggleCompletedTodo(1);
@@ -38,3 +39,14 @@ console.log("testing the list todos");
 console.log(app.findTodoById(0));
 ScreenController.renderAllProjects();
 console.log(FormController.forms);
+app.saveData();
+
+const savedTodo = myTodo.saveTodo();
+
+console.log(savedTodo);
+const loadedTodo = Todo.loadTodo(savedTodo);
+app.projects[0].addToProject(loadedTodo);
+console.log(app.projects);
+
+const savedProjectData = app.projects[1].saveProject();
+const ProjectDataParsed = Project.loadProject(savedProjectData);

@@ -2,7 +2,8 @@
 import { formatRelative, formatDistanceToNow } from "date-fns";
 export class Todo {
   #creationDate = new Date();
-  #completed = false;
+
+  completed = false;
 
   static todoIdControl = 0;
 
@@ -39,10 +40,17 @@ export class Todo {
   get priority() {
     return this.todoPriority;
   }
+  get savedCreationDate() {
+    return this.#creationDate;
+  }
   get creationTime() {
     //add here the date-fns
     const relativeTime = formatRelative(this.#creationDate, Date());
     return relativeTime;
+  }
+  set loadCreationDate(time) {
+    this.#creationDate = new Date(time);
+    return this.#creationDate;
   }
   get timeToDuedate() {
     if (this.duedate === "" || this.duedate === false) {
@@ -54,13 +62,13 @@ export class Todo {
     console.log(timeToDuedate);
     return timeToDuedate;
   }
-  set completed(flag) {
-    if (flag === true) console.log(`task ${this.title} completed`);
-    this.#completed = flag;
-  }
-  get completed() {
-    return this.#completed;
-  }
+  // set completed(flag) {
+  //   if (flag === true) console.log(`task ${this.title} completed`);
+  //   this.#completed = flag;
+  // }
+  // get completed() {
+  //   return this.#completed;
+  // }
 
   toString() {
     return `A todo titled - ${this.title} -, id ${this.Id}, duedate set to ${
@@ -68,5 +76,29 @@ export class Todo {
     }, with priority ${this.priority} created at ${this.creationTime}`;
   }
 
-  todoEntries() {}
+  static loadTodo(todoJsonString) {
+    const taskData = JSON.parse(todoJsonString);
+    const task = new Todo(
+      taskData.title,
+      taskData.description,
+      taskData.duedate,
+      taskData.priority
+    );
+    task.loadCreationDate = taskData.createdIn;
+    return task;
+  }
+
+  saveTodo() {
+    const task = structuredClone(this);
+    const date = this.savedCreationDate;
+    task.createdIn = date;
+    console.log(task);
+    const data = JSON.stringify(task, function (key, value) {
+      return key === "parentProject" || key === "Id" ? undefined : value;
+    });
+
+    console.log(data);
+    console.log(JSON.parse(data));
+    return data;
+  }
 }
