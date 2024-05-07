@@ -1,6 +1,6 @@
 //maybe composition to make them share a property pointing to the same place
 //like a relational table
-
+import { Todo } from "./todo";
 export class Project {
   todoList = [];
   // #creationDate = new Date();
@@ -72,11 +72,15 @@ export class Project {
 
   static loadProject(projectJSONString) {
     const parsedProject = JSON.parse(projectJSONString);
-
+    // parsedProject.todoList;
     const loadProject = new Project(
       parsedProject.name,
       parsedProject.description
     );
+    //I need to save the todoList
+    // for (const todo of parsedProject.todoList){
+    //   const todoInstance =
+    // }
     console.log(loadProject);
     return loadProject;
   }

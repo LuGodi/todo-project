@@ -16,49 +16,35 @@ class App {
   }
   loadData() {
     //Check if theres data to load
-    if (Storage.length === 0) {
+    if (!localStorage.getItem("savedProjects")) {
       console.log("no data to load");
       return;
     }
-    //load it
+    const data = localStorage.getItem("savedProjects");
+    const parsedData = JSON.parse(data);
+    //call app.addNewProject
+    for (const project of parsedData) {
+      const newProject = this.addNewProject(project.name, project.description);
+      console.log(newProject);
+      for (const task of project.todoList) {
+        const newTodo = Todo.loadTodo(task, newProject);
+        newProject.addToProject(newTodo);
+        // const todo = Todo.loadTodo(task)
+        // newProject.addToProject()
+      }
+    }
   }
 
   saveData() {
-    const projectsStorage = [];
     //save changes to local storage
     //What is of our interest?
     //Todos and projects properties, methods cant be saved.
     //methods inside the class are non enumerable by default
-    console.log("SAVE DATALDLSLDLFLFLSSDL");
-    this.listProjects((project) => {
-      console.log(
-        JSON.stringify(project, (key, value) => {
-          if (key === "parentProject") {
-            return;
-          } else return value;
-        })
-      );
-    });
+    // console.log("SAVE DATALDLSLDLFLFLSSDL");
     // this.listProjects((project) => {
-    //   console.log(`SAVE DATA HERE
-    //   -------
-    //   -----`);
-
-    //   const data = JSON.stringify(project, function (key, value) {
-    //     if (key === "todoList") {
-    //       console.log(JSON.stringify(value[0]));
-    //       return value[0];
-    //     }
-
-    //     return value;
-    //   });
-
-    //   console.log(data);
-    //   // const todoStorage = [];
-    //   // project.listTodos(todo=>todoStorage.push(todo))
-
-    //   projectsStorage.push(project);
+    //   projectsStorage.push(project.saveProject());
     // });
+    localStorage.setItem("savedProjects", JSON.stringify(app.projects));
   }
   addNewTodo({
     title,

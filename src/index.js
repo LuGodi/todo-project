@@ -41,12 +41,18 @@ ScreenController.renderAllProjects();
 console.log(FormController.forms);
 app.saveData();
 
-const savedTodo = myTodo.saveTodo();
+// const savedTodo = myTodo.saveTodo();
 
-console.log(savedTodo);
-const loadedTodo = Todo.loadTodo(savedTodo);
-app.projects[0].addToProject(loadedTodo);
+// console.log(savedTodo);
+// const loadedTodo = Todo.loadTodo(savedTodo);
+// app.projects[0].addToProject(loadedTodo);
+// console.log(app.projects);
+
+// const savedProjectData = app.projects[1].saveProject();
+// const ProjectDataParsed = Project.loadProject(savedProjectData);
+
+app.saveData();
+
+app.loadData();
+
 console.log(app.projects);
-
-const savedProjectData = app.projects[1].saveProject();
-const ProjectDataParsed = Project.loadProject(savedProjectData);

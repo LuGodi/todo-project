@@ -49,7 +49,11 @@ export class Todo {
     return relativeTime;
   }
   set loadCreationDate(time) {
+    console.log("creation date loading");
+    console.log(time);
+
     this.#creationDate = new Date(time);
+    console.log(this.#creationDate);
     return this.#creationDate;
   }
   get timeToDuedate() {
@@ -73,18 +77,21 @@ export class Todo {
   toString() {
     return `A todo titled - ${this.title} -, id ${this.Id}, duedate set to ${
       this.duedate === false || this.duedate === "" ? "None" : this.duedate
-    }, with priority ${this.priority} created at ${this.creationTime}`;
+    }, with priority ${this.priority} created at ${this.#creationDate}`;
   }
 
-  static loadTodo(todoJsonString) {
-    const taskData = JSON.parse(todoJsonString);
+  static loadTodo(taskData, parentProject) {
+    // const taskData = JSON.parse(todoJsonString);
+    console.log(taskData);
     const task = new Todo(
       taskData.title,
       taskData.description,
       taskData.duedate,
-      taskData.priority
+      taskData.priority,
+      parentProject
     );
     task.loadCreationDate = taskData.createdIn;
+    task.completed = taskData.completed;
     return task;
   }
 
@@ -99,6 +106,20 @@ export class Todo {
 
     console.log(data);
     console.log(JSON.parse(data));
+    return data;
+  }
+
+  toJSON(key) {
+    const data = Object.assign({}, this);
+    data.createdIn = this.#creationDate;
+    // const data = this.saveTodo();
+    // const parsedData = JSON.parse(data);
+    // const savedTodo = structuredClone(this);
+    // const date = this.savedCreationDate;
+    // savedTodo.createdIn = date;
+    // console.log(savedTodo);
+    // return savedTodo;
+
     return data;
   }
 }
