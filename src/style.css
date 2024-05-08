@@ -265,7 +265,10 @@ div:has(input[data-icon-action="toggleCompleted"])::before {
 }
 .todo p.duedate::before {
   content: ""/"alarm";
-  background-image: url(../assets/alarm_icon.svg);
+  -webkit-mask-image: url(../assets/alarm_icon.svg);
+  mask-image: url(../assets/alarm_icon.svg);
+  background-color: var(--background-color);
+  mask-size: cover;
 }
 .todo p.duedate:hover::after,
 .todo p.description:hover::after,
@@ -288,24 +291,30 @@ div:has(input[data-icon-action="toggleCompleted"])::before {
 }
 .todo p.description::before {
   content: "";
-  background-image: url(../assets/description_icon.svg);
+  mask-image: url(../assets/description_icon.svg);
+  -webkit-mask-image: url(../assets/description_icon.svg);
+  background-color: var(--background-color);
+  mask-size: cover;
 }
 .todo p.creation-date::before {
   content: "";
-  background-image: url(../assets/created_icon.svg);
+  mask-image: url(../assets/created_icon.svg);
+  mask-size: cover;
+  -webkit-mask-image: url(../assets/created_icon.svg);
+  background-color: var(--background-color);
 }
 .todo > .hiddenDetails {
   display: none;
 }
 
 .todo[data-todo-priority="1"] {
-  border-left: 5px solid var(--low-priority);
+  border-left: 10px solid var(--low-priority);
 }
 .todo[data-todo-priority="2"] {
-  border-left: 5px solid var(--medium-priority);
+  border-left: 10px solid var(--medium-priority);
 }
 .todo[data-todo-priority="3"] {
-  border-left: 5px solid var(--high-priority);
+  border-left: 10px solid var(--high-priority);
 }
 
 dialog {

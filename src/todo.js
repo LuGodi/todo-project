@@ -87,7 +87,7 @@ export class Todo {
       taskData.title,
       taskData.description,
       taskData.duedate,
-      taskData.priority,
+      taskData.todoPriority,
       parentProject
     );
     task.loadCreationDate = taskData.createdIn;
@@ -98,6 +98,7 @@ export class Todo {
   toJSON(key) {
     const data = Object.assign({}, this);
     data.createdIn = this.#creationDate;
+
     // const data = this.saveTodo();
     // const parsedData = JSON.parse(data);
     // const savedTodo = structuredClone(this);
