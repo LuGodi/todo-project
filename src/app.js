@@ -12,12 +12,19 @@ class App {
     const defaultProject = this.addNewProject("Default");
     ScreenController.init();
     FormController.init();
-    this.saveData();
+    this.loadData();
+  }
+  clearLocalStorage() {
+    localStorage.clear();
+    this.loadData();
+    ScreenController.renderAllProjects();
   }
   loadData() {
     //Check if theres data to load
     if (!localStorage.getItem("savedProjects")) {
       console.log("no data to load");
+      const defaultProject = this.addNewProject("Default");
+      app.projects = [];
       return;
     }
     const data = localStorage.getItem("savedProjects");

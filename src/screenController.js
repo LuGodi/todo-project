@@ -27,7 +27,13 @@ export class ScreenController {
     this.buttons.buttonContainer.addEventListener("click", (event) => {
       if (event.target.tagName === "BUTTON") {
         console.log(event.target.dataset);
-        this.#openDialog(event.target.dataset.dialog);
+        if (event.target.dataset.dialog) {
+          this.#openDialog(event.target.dataset.dialog);
+        } else if (event.target.dataset.action) {
+          console.log(event.target.dataset.action);
+          const func = event.target.dataset.action;
+          app[func]();
+        }
       }
     });
 

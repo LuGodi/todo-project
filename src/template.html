@@ -13,9 +13,15 @@
       <div class="header">
         <button id="add-todo-button" data-dialog="addTodoForm">Add todo</button>
         <div class="header-center">
-          <button id="add-project-button" data-dialog="addProjectForm">
-            Add project
-          </button>
+          <div class="center-buttons">
+            <button id="add-project-button" data-dialog="addProjectForm">
+              Add project
+            </button>
+            <button id="reset-data-button" data-action="clearLocalStorage">
+              Reset
+            </button>
+            <button id="save-data-button" data-action="saveData">Save</button>
+          </div>
           <div class="status">
             <h4>Status</h4>
           </div>
