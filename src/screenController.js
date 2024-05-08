@@ -69,7 +69,7 @@ export class ScreenController {
   static #addProject(project, projectIndex) {
     const div = document.createElement("div");
     div.classList.add("project");
-    console.log(project);
+
     div.dataset.projectIndex = projectIndex;
     const span = document.createElement("span");
     span.classList.add("project-header");
@@ -81,8 +81,6 @@ export class ScreenController {
   }
 
   static #projectEventListeners(event) {
-    console.log(this);
-    console.log(event.target);
     console.log(event.target.dataset.iconAction === "delete-project");
     if (event.target.dataset.iconAction === "delete-project") {
       console.log("delete project");
@@ -134,7 +132,6 @@ export class ScreenController {
   }
 
   static #todoEventListeners(event, divExtraInformation) {
-    console.log(this);
     if (event.target.dataset.iconAction !== undefined) {
       ScreenController[event.target.dataset.iconAction + "Todo"](
         event,
@@ -196,7 +193,6 @@ export class ScreenController {
   static renderAllProjects() {
     const projectElements = [];
     app.listProjects((project, projectIndex) => {
-      console.log(project);
       const projectDiv = ScreenController.#addProject(project, projectIndex);
       project.listTodos((todo) => {
         const todoDiv = ScreenController.#addTodo(todo);
@@ -237,8 +233,6 @@ export class ScreenController {
   }
 
   static expandTodo(event, todoId, divExtraInformation) {
-    console.log("click");
-    console.log(event.currentTarget);
     const targetExtraInfo = divExtraInformation;
     targetExtraInfo.classList.toggle("hiddenDetails");
   }

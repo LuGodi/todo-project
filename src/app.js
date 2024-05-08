@@ -9,7 +9,7 @@ class App {
   init() {
     //make default project
     console.log("init");
-    const defaultProject = this.addNewProject("Default");
+    // const defaultProject = this.addNewProject("Default");
     ScreenController.init();
     FormController.init();
     this.loadData();
@@ -43,14 +43,9 @@ class App {
   }
 
   saveData() {
-    //save changes to local storage
     //What is of our interest?
     //Todos and projects properties, methods cant be saved.
     //methods inside the class are non enumerable by default
-    // console.log("SAVE DATALDLSLDLFLFLSSDL");
-    // this.listProjects((project) => {
-    //   projectsStorage.push(project.saveProject());
-    // });
     localStorage.setItem("savedProjects", JSON.stringify(app.projects));
   }
   addNewTodo({
@@ -82,14 +77,13 @@ class App {
         new Todo(title, description, duedate, priority, newProject)
       );
     } else {
-      console.log(this.projects.length);
       if (this.projects.length === 0) {
-        (project = {
+        project = {
           type: "index",
           projectName: "Default",
           projectIndex: 0,
-        }),
-          this.addNewProject(project.projectName);
+        };
+        this.addNewProject(project.projectName);
       }
 
       const projectObj = this.projects[project.projectIndex];
@@ -193,7 +187,7 @@ class App {
   //TODO i want to add a function to be applied to each project
   listProjects(func, func2) {
     for (let [projectIndex, project] of this.projects.entries()) {
-      console.log(projectIndex, project);
+      // console.log(projectIndex, project);
       func(project, projectIndex);
       // console.log(project.toString());
     }

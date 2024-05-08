@@ -95,20 +95,6 @@ export class Todo {
     return task;
   }
 
-  saveTodo() {
-    const task = structuredClone(this);
-    const date = this.savedCreationDate;
-    task.createdIn = date;
-    console.log(task);
-    const data = JSON.stringify(task, function (key, value) {
-      return key === "parentProject" || key === "Id" ? undefined : value;
-    });
-
-    console.log(data);
-    console.log(JSON.parse(data));
-    return data;
-  }
-
   toJSON(key) {
     const data = Object.assign({}, this);
     data.createdIn = this.#creationDate;
