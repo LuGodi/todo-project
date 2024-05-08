@@ -1,8 +1,14 @@
+@font-face {
+  font-family: "Josefin Sans";
+  src: url("../assets/JosefinSans-VariableFont_wght.ttf");
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 :root {
   --background-color: var(--color-dark);
   --header-child-bg-color: var(--color-blue);
@@ -25,6 +31,7 @@
 body {
   background-color: var(--background-color);
   color: white;
+  font-family: "Josefin Sans";
 }
 .main {
   margin: 20px 20px;
@@ -80,9 +87,10 @@ body {
   flex-basis: 30%;
   border: 0;
 }
-.center-buttons > button:hover {
+.header button:hover,
+.header #add-todo-button:hover {
   background-color: #1b66bc;
-  font-size: 18px;
+  font-size: 24px;
   border-style: double;
   border: 2px;
 }
@@ -117,6 +125,8 @@ body {
 }
 button {
   background-color: var(--button-color);
+  font-family: "Josefin Sans";
+  font-size: 20px;
   /* border: 2px solid var(--color-blue); */
 
   color: var(--font-color);
