@@ -115,6 +115,7 @@ class App {
   }
 
   deleteProject(projectArrayPosition) {
+    console.log(this.projects[projectArrayPosition]);
     this.projects.splice(projectArrayPosition, 1);
     console.log(this.projects);
   }

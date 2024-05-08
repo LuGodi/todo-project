@@ -84,7 +84,7 @@ export class ScreenController {
     console.log(event.target.dataset.iconAction === "delete-project");
     if (event.target.dataset.iconAction === "delete-project") {
       console.log("delete project");
-      app.deleteProject(event.target.dataset.projectIndex);
+      app.deleteProject(event.currentTarget.dataset.projectIndex);
       ScreenController.renderAllProjects();
     }
   }

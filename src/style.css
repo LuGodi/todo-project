@@ -64,6 +64,7 @@ body {
   border-radius: 0;
   border: 0px;
   max-width: 130px;
+  padding: 0 10px;
 }
 
 .header > *:not(.header-center) {
@@ -182,6 +183,7 @@ button#add-todo-button:active {
   justify-content: space-between;
   font-size: 24px;
   flex-wrap: wrap;
+  row-gap: 20px;
 }
 .todo-header span[data-icon-action="expand"] {
   flex-basis: 100%;
@@ -243,7 +245,7 @@ button#add-todo-button:active {
   border-radius: 50px;
   background-color: var(--color-blue);
   position: absolute;
-  transform: translateY(160%);
+  transform: translateY(113%);
   pointer-events: none;
 }
 div:has(input[data-icon-action="toggleCompleted"])::before {

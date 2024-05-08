@@ -60,8 +60,8 @@ export class FormController {
     const formData = new FormData(formElement);
 
     if (formElement === this.addTodoForm.formElement) {
-      console.log(formData.has("duedate"));
-      console.log(formData.get("duedate"));
+      console.log(formData.has("description"));
+      console.log(formData.get("description"));
       console.log(
         formData.get("parent-project"),
         formData.get("new-project-name")
