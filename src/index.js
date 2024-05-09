@@ -29,7 +29,7 @@ const mock = {
 
 app.init();
 // const myTodo = app.addNewTodo(mock.task1);
-app.addNewTodo(mock.task2);
+// app.addNewTodo(mock.task2);
 // app.addNewTodo(mock.task3);
 // app.findAndToggleCompletedTodo(1);
 // console.log("list projects:");

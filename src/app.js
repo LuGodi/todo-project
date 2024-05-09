@@ -24,9 +24,11 @@ class App {
     if (!localStorage.getItem("savedProjects")) {
       console.log("no data to load");
       const defaultProject = this.addNewProject("Default");
-      app.projects = [];
+      this.projects = [];
+      this.mockData();
       return;
     }
+
     const data = localStorage.getItem("savedProjects");
     const parsedData = JSON.parse(data);
     //call app.addNewProject
@@ -42,6 +44,32 @@ class App {
     }
   }
 
+  mockData() {
+    const mock = {
+      task1: {
+        title: "dishes",
+        description: "do the dishes",
+
+        priority: 3,
+      },
+      task2: {
+        title: "study",
+        description: "math today",
+
+        priority: 1,
+      },
+      task3: {
+        title: "walk dog",
+        description: "boo",
+
+        priority: 2,
+        project: { type: "name", projectName: "Home" },
+      },
+    };
+    for (const [key, value] of Object.entries(mock)) {
+      this.addNewTodo(value);
+    }
+  }
   saveData() {
     //What is of our interest?
     //Todos and projects properties, methods cant be saved.
