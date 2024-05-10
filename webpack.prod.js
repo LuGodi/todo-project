@@ -9,7 +9,7 @@ module.exports = merge(common, {
   devtool: "source-map",
   plugins: [new MiniCssExtractPlugin()],
   optimization: {
-    minimizer: [new CssMinimizerPlugin()],
+    minimizer: [`...`, new CssMinimizerPlugin()],
   },
   module: {
     rules: [
